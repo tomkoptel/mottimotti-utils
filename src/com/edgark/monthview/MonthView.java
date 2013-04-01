@@ -110,14 +110,21 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
 
     private void dispatchPreviousMonthSelected() {
         if (monthSelectedListener != null) {
-            monthSelectedListener.onPreviousMonthSelected();
+            Calendar[] calendars = getCurrentCalendars();
+            monthSelectedListener.onPreviousMonthSelected(calendars[0], calendars[1]);
         }
     }
 
     private void dispatchNextMonthSelected() {
         if (monthSelectedListener != null) {
-            monthSelectedListener.onNextMonthSelected();
+            Calendar[] calendars = getCurrentCalendars();
+            monthSelectedListener.onNextMonthSelected(calendars[0], calendars[1]);
         }
+    }
+
+    public Calendar[] getCurrentCalendars() {
+        CalendarFilter calendarFilters = new CalendarFilter(monthDisplayHelper);
+        return calendarFilters.getFilters();
     }
 
     private TextView makeTv(float weight, String text) {
@@ -134,7 +141,6 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
 
 
     private void prepare() {
-
         if (monthDisplayHelper == null)
             monthDisplayHelper = new CustomMonthDisplayHelper(year, month);
         curTv.setText(String.format("%s %d", monthNames[monthDisplayHelper.getMonth()], monthDisplayHelper.getYear()));
@@ -489,8 +495,8 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
         return dayNames;
     }
 
-    public void setDayNames(List<String> dayNames) {
-        this.dayNames = dayNames;
+    public void setDayNames(String[] dayNames) {
+        this.dayNames = Arrays.asList(dayNames);
     }
 
     public String[] getMonthNames() {
@@ -595,9 +601,8 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
     }
 
     public interface OnMonthSelectedListener {
-        public void onPreviousMonthSelected();
-
-        public void onNextMonthSelected();
+        public void onPreviousMonthSelected(Calendar startCalendar, Calendar endCalendar);
+        public void onNextMonthSelected(Calendar startCalendar, Calendar endCalendar);
     }
 
     public void setOnMonthSelectedListener(OnMonthSelectedListener selectedListener) {
