@@ -19,12 +19,9 @@ import java.util.*;
  */
 public class MonthView extends LinearLayout implements AdapterView.OnItemClickListener {
     private LinearLayout topLayout;
-    private TextView prevTv,
-            curTv,
-            nextTv;
+    private TextView prevTv, curTv, nextTv;
 
-    private GridView headGrid,
-            bodyGrid;
+    private GridView headGrid, bodyGrid;
 
     Integer calendar_today_resource,
             calendar_has_event_resource,
@@ -33,25 +30,19 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
             calendar_items_resource,
             calendar_head_resource;
 
-    int screenWidth,
-            month,
-            year;
+    int screenWidth, month, year;
 
     private OnDayClickListener onDayClickListener;
+    private OnMonthSelectedListener monthSelectedListener;
 
     private List<Date> dates = new ArrayList<Date>();
-
 
     private CalendarArrayAdapter<CalendarItem> adapter;
     private List<CalendarItem> values;
 
     private List<String> dayNames = Arrays.asList(new String[]{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"});
-    private String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};;
+    private String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     private CustomMonthDisplayHelper monthDisplayHelper;
-
-    public CustomMonthDisplayHelper getMonthDisplayHelper() {
-        return monthDisplayHelper;
-    }
 
     public MonthView(Context context) {
         super(context);
@@ -65,7 +56,6 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
 
 
     public void initialize() {
-
         Calendar c = Calendar.getInstance();
         year = c.get(Calendar.YEAR);
         month = c.get(Calendar.MONTH);
@@ -98,12 +88,12 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
 
         this.setBackgroundColor(Color.WHITE);
 
-
         prevTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 monthDisplayHelper.previousMonth();
                 prepare();
+                dispatchPreviousMonthSelected();
             }
         });
         nextTv.setOnClickListener(new View.OnClickListener() {
@@ -111,11 +101,23 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
             public void onClick(View view) {
                 monthDisplayHelper.nextMonth();
                 prepare();
+                dispatchNextMonthSelected();
             }
         });
 
-
         prepare();
+    }
+
+    private void dispatchPreviousMonthSelected() {
+        if (monthSelectedListener != null) {
+            monthSelectedListener.onPreviousMonthSelected();
+        }
+    }
+
+    private void dispatchNextMonthSelected() {
+        if (monthSelectedListener != null) {
+            monthSelectedListener.onNextMonthSelected();
+        }
     }
 
     private TextView makeTv(float weight, String text) {
@@ -586,6 +588,20 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
     public void setDates(List<Date> dates) {
         this.dates = dates;
         prepare();
+    }
+
+    public CustomMonthDisplayHelper getMonthDisplayHelper() {
+        return monthDisplayHelper;
+    }
+
+    public interface OnMonthSelectedListener {
+        public void onPreviousMonthSelected();
+
+        public void onNextMonthSelected();
+    }
+
+    public void setOnMonthSelectedListener(OnMonthSelectedListener selectedListener) {
+        this.monthSelectedListener = selectedListener;
     }
 
     public static interface OnDayClickListener {
