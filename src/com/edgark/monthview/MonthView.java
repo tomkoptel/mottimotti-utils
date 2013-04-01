@@ -46,10 +46,12 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
     private List<CalendarItem> values;
 
     private List<String> dayNames = Arrays.asList(new String[]{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"});
-    private String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-    ;
+    private String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};;
     private CustomMonthDisplayHelper monthDisplayHelper;
 
+    public CustomMonthDisplayHelper getMonthDisplayHelper() {
+        return monthDisplayHelper;
+    }
 
     public MonthView(Context context) {
         super(context);
@@ -111,8 +113,6 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
                 prepare();
             }
         });
-
-
 
 
         prepare();
@@ -373,7 +373,7 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
             this.yearNumber = yearNumber;
         }
 
-        private Date getDate(){
+        private Date getDate() {
             return new Date(year - 1900, month, number);
         }
 
@@ -437,8 +437,8 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
             return false;
         }
 
-        public boolean hasEvt(int row, int column){
-            return (dates.indexOf(new Date(getYear(row, column)-1900, getMonth(row, column),getDayAt(row, column) )) > -1);
+        public boolean hasEvt(int row, int column) {
+            return (dates.indexOf(new Date(getYear(row, column) - 1900, getMonth(row, column), getDayAt(row, column))) > -1);
         }
     }
 
@@ -504,7 +504,7 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
     }
 
     public void setCalendar_today_resource(Integer calendar_today_resource) throws SetItemsResourceFirst {
-        if(calendar_items_resource == null)
+        if (calendar_items_resource == null)
             throw new SetItemsResourceFirst("Failed to set head resourece. Set items layout first");
         this.calendar_today_resource = calendar_today_resource;
     }
@@ -514,7 +514,7 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
     }
 
     public void setCalendar_has_event_resource(Integer calendar_has_event_resource) throws SetItemsResourceFirst {
-        if(calendar_items_resource == null)
+        if (calendar_items_resource == null)
             throw new SetItemsResourceFirst("Failed to set head resourece. Set items layout first");
         this.calendar_has_event_resource = calendar_has_event_resource;
     }
@@ -524,7 +524,7 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
     }
 
     public void setCalendar_other_month_resource(Integer calendar_other_month_resource) throws SetItemsResourceFirst {
-        if(calendar_items_resource == null)
+        if (calendar_items_resource == null)
             throw new SetItemsResourceFirst("Failed to set head resourece. Set items layout first");
         this.calendar_other_month_resource = calendar_other_month_resource;
     }
@@ -534,7 +534,7 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
     }
 
     public void setCalendar_usual_resource(Integer calendar_usual_resource) throws SetItemsResourceFirst {
-        if(calendar_items_resource == null)
+        if (calendar_items_resource == null)
             throw new SetItemsResourceFirst("Failed to set head resourece. Set items layout first");
         this.calendar_usual_resource = calendar_usual_resource;
     }
@@ -552,11 +552,12 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
     }
 
     public void setCalendar_head_resource(Integer calendar_head_resource) throws SetItemsResourceFirst {
-        if(calendar_items_resource == null)
+        if (calendar_items_resource == null)
             throw new SetItemsResourceFirst("Failed to set head resourece. Set items layout first");
         this.calendar_head_resource = calendar_head_resource;
     }
-    public class SetItemsResourceFirst extends Exception{
+
+    public class SetItemsResourceFirst extends Exception {
         SetItemsResourceFirst(String detailMessage) {
             super(detailMessage);
         }
@@ -586,7 +587,8 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
         this.dates = dates;
         prepare();
     }
-    public static interface OnDayClickListener{
+
+    public static interface OnDayClickListener {
         void onItemClick(Date date, View view);
     }
 }
