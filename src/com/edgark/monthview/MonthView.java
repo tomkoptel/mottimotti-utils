@@ -18,9 +18,7 @@ import java.util.*;
  * Time: 2:46 PM
  */
 public class MonthView extends LinearLayout implements AdapterView.OnItemClickListener {
-    private LinearLayout topLayout;
-    private TextView prevTv, curTv, nextTv;
-
+    private TextView curTv;
     private GridView headGrid, bodyGrid;
 
     Integer calendar_today_resource,
@@ -34,11 +32,8 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
 
     private OnDayClickListener onDayClickListener;
     private OnMonthSelectedListener monthSelectedListener;
-
     private List<Date> dates = new ArrayList<Date>();
-
     private CalendarArrayAdapter<CalendarItem> adapter;
-    private List<CalendarItem> values;
 
     private List<String> dayNames = Arrays.asList(new String[]{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"});
     private String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
@@ -56,25 +51,25 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
 
 
     public void initialize() {
-        Calendar c = Calendar.getInstance();
-        year = c.get(Calendar.YEAR);
-        month = c.get(Calendar.MONTH);
+        Calendar calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
 
         WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         screenWidth = display.getWidth();
 
         this.setOrientation(LinearLayout.VERTICAL);
-        topLayout = new LinearLayout(getContext());
+        LinearLayout topLayout = new LinearLayout(getContext());
         topLayout.setOrientation(LinearLayout.HORIZONTAL);
 
-        prevTv = makeTv(1f, "<");
+        View prevTv = makeTv(1f, "<");
         topLayout.addView(prevTv);
 
         curTv = makeTv(8f, "Month");
         topLayout.addView(curTv);
 
-        nextTv = makeTv(1f, ">");
+        View nextTv = makeTv(1f, ">");
         topLayout.addView(nextTv);
 
         addView(topLayout);
@@ -150,14 +145,11 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
 
 
     private void prepare(CustomMonthDisplayHelper customDisplayHelper) {
-
         CalendarArrayAdapter headAdapter = new CalendarArrayAdapter(getContext(), dayNames);
         headAdapter.setHead(true);
         headGrid.setAdapter(headAdapter);
 
-
-        values = new ArrayList<CalendarItem>();
-
+        ArrayList<CalendarItem> values = new ArrayList<CalendarItem>();
 
         for (int j = 0; j < 6; j++) {
             int temp[] = customDisplayHelper.getDigitsForRow(j);
@@ -178,9 +170,7 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
 
 
         adapter = new CalendarArrayAdapter<CalendarItem>(getContext(), values);
-
         bodyGrid.setAdapter(adapter);
-
     }
 
 
@@ -195,13 +185,14 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
         }
     }
 
-
     private final class CalendarArrayAdapter<T> extends ArrayAdapter<T> {
         private int selected;
         private boolean head;
+        private final LayoutInflater inflater;
 
         public CalendarArrayAdapter(Context context, List<T> values) {
             super(context, android.R.layout.test_list_item, values);
+            inflater = LayoutInflater.from(getContext());
         }
 
         public void select(int position) {
@@ -218,17 +209,11 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
-
-
-            LayoutInflater inflater = LayoutInflater.from(getContext());
-
+            final TextView cell;
             LinearLayout cells = null;
             if (calendar_items_resource != null) {
                 cells = (LinearLayout) inflater.inflate(calendar_items_resource, parent, false);
             }
-
-
-            final TextView cell;
 
             if (!isHead()) {
                 CalendarItem item = (CalendarItem) getItem(position);
@@ -251,9 +236,7 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
             layout.addView(cell);
 
 
-            return (layout);
-
-
+            return layout;
         }
 
         private TextView makeCell(View parrent, Integer textView, int textColor, int shadowColor, int grStart, int grEnd) {
@@ -291,7 +274,6 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
             this.head = head;
         }
     }
-
 
     private final class CalendarItem {
         public static final int TYPE_USUAL_ITEM = 0x000;
@@ -450,29 +432,12 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
         }
     }
 
-
-    public TextView getPrevTv() {
-        return prevTv;
-    }
-
-    public void setPrevTv(TextView prevTv) {
-        this.prevTv = prevTv;
-    }
-
     public TextView getCurTv() {
         return curTv;
     }
 
     public void setCurTv(TextView curTv) {
         this.curTv = curTv;
-    }
-
-    public TextView getNextTv() {
-        return nextTv;
-    }
-
-    public void setNextTv(TextView nextTv) {
-        this.nextTv = nextTv;
     }
 
     public GridView getHeadGrid() {
@@ -563,12 +528,6 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
         if (calendar_items_resource == null)
             throw new SetItemsResourceFirst("Failed to set head resourece. Set items layout first");
         this.calendar_head_resource = calendar_head_resource;
-    }
-
-    public class SetItemsResourceFirst extends Exception {
-        SetItemsResourceFirst(String detailMessage) {
-            super(detailMessage);
-        }
     }
 
     public int getMonth() {
