@@ -32,7 +32,7 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
             calendar_items_resource,
             calendar_head_resource;
 
-    int month, year;
+    private int month, year, screenWidth;
 
     private OnDayClickListener onDayClickListener;
     private OnMonthSelectedListener monthSelectedListener;
@@ -55,12 +55,11 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
     public void initialize() {
         setBackgroundColor(Color.WHITE);
         setOrientation(LinearLayout.VERTICAL);
+        screenWidth = getScreenSize().x;
 
         Calendar calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
-
-
 
         createTopView();
 
@@ -74,6 +73,24 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
         addView(bodyGrid);
 
         prepare();
+    }
+
+
+    private Point getScreenSize() {
+        WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        return getSize(display);
+    }
+
+    private Point getSize(Display display) {
+        Point size = new Point();
+
+        if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
+            size.set(display.getWidth(), display.getHeight());
+        } else {
+            display.getSize(size);
+        }
+        return size;
     }
 
     private void createTopView() {
@@ -276,29 +293,10 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
         private int selected;
         private boolean head;
         private final LayoutInflater inflater;
-        private final int screenWidth;
 
         public CalendarArrayAdapter(Context context, List<T> values) {
             super(context, android.R.layout.test_list_item, values);
             inflater = LayoutInflater.from(getContext());
-            screenWidth = getScreenSize().x;
-        }
-
-        private Point getScreenSize() {
-            WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-            Display display = wm.getDefaultDisplay();
-            return getSize(display);
-        }
-
-        private Point getSize(Display display) {
-            Point size = new Point();
-
-            if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
-                size.set(display.getWidth(), display.getHeight());
-            } else {
-                display.getSize(size);
-            }
-            return size;
         }
 
         public void select(int position) {
