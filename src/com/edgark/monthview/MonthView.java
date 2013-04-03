@@ -1,16 +1,17 @@
 package com.edgark.monthview;
 
-import android.*;
-import android.R;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.util.AttributeSet;
 import android.util.MonthDisplayHelper;
 import android.view.*;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.GridView;
+import android.widget.LinearLayout;
 
 import java.util.*;
 
@@ -31,12 +32,11 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
             calendar_items_resource,
             calendar_head_resource;
 
-    int screenWidth, month, year;
+    int month, year;
 
     private OnDayClickListener onDayClickListener;
     private OnMonthSelectedListener monthSelectedListener;
     private List<Date> dates = new ArrayList<Date>();
-    private CalendarArrayAdapter<CalendarItem> adapter;
 
     private List<String> dayNames = Arrays.asList(new String[]{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"});
     private String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
@@ -60,9 +60,7 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
 
-        WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        screenWidth = display.getWidth();
+
 
         createTopView();
 
@@ -163,7 +161,7 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
             monthDisplayHelper = new CustomMonthDisplayHelper(year, month);
         curTv.setText(String.format("%s %d", monthNames[monthDisplayHelper.getMonth()], monthDisplayHelper.getYear()));
         prepare(monthDisplayHelper);
-        adapter.notifyDataSetInvalidated();
+        ((CalendarArrayAdapter) bodyGrid.getAdapter()).notifyDataSetInvalidated();
     }
 
     private void prepare(CustomMonthDisplayHelper customDisplayHelper) {
@@ -191,7 +189,7 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
         }
 
 
-        adapter = new CalendarArrayAdapter<CalendarItem>(getContext(), values);
+        CalendarArrayAdapter adapter = new CalendarArrayAdapter<CalendarItem>(getContext(), values);
         bodyGrid.setAdapter(adapter);
     }
 
@@ -213,25 +211,25 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
 
     public void setCalendar_today_resource(Integer calendar_today_resource) throws SetItemsResourceFirst {
         if (calendar_items_resource == null)
-            throw new SetItemsResourceFirst("Failed to set head resourece. Set items layout first");
+            throw new SetItemsResourceFirst("Failed to set head resource. Set items layout first");
         this.calendar_today_resource = calendar_today_resource;
     }
 
     public void setCalendar_has_event_resource(Integer calendar_has_event_resource) throws SetItemsResourceFirst {
         if (calendar_items_resource == null)
-            throw new SetItemsResourceFirst("Failed to set head resourece. Set items layout first");
+            throw new SetItemsResourceFirst("Failed to set head resource. Set items layout first");
         this.calendar_has_event_resource = calendar_has_event_resource;
     }
 
     public void setCalendar_other_month_resource(Integer calendar_other_month_resource) throws SetItemsResourceFirst {
         if (calendar_items_resource == null)
-            throw new SetItemsResourceFirst("Failed to set head resourece. Set items layout first");
+            throw new SetItemsResourceFirst("Failed to set head resource. Set items layout first");
         this.calendar_other_month_resource = calendar_other_month_resource;
     }
 
     public void setCalendar_usual_resource(Integer calendar_usual_resource) throws SetItemsResourceFirst {
         if (calendar_items_resource == null)
-            throw new SetItemsResourceFirst("Failed to set head resourece. Set items layout first");
+            throw new SetItemsResourceFirst("Failed to set head resource. Set items layout first");
         this.calendar_usual_resource = calendar_usual_resource;
     }
 
@@ -241,7 +239,7 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
 
     public void setCalendar_head_resource(Integer calendar_head_resource) throws SetItemsResourceFirst {
         if (calendar_items_resource == null)
-            throw new SetItemsResourceFirst("Failed to set head resourece. Set items layout first");
+            throw new SetItemsResourceFirst("Failed to set head resource. Set items layout first");
         this.calendar_head_resource = calendar_head_resource;
     }
 
@@ -278,10 +276,29 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
         private int selected;
         private boolean head;
         private final LayoutInflater inflater;
+        private final int screenWidth;
 
         public CalendarArrayAdapter(Context context, List<T> values) {
             super(context, android.R.layout.test_list_item, values);
             inflater = LayoutInflater.from(getContext());
+            screenWidth = getScreenSize().x;
+        }
+
+        private Point getScreenSize() {
+            WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+            Display display = wm.getDefaultDisplay();
+            return getSize(display);
+        }
+
+        private Point getSize(Display display) {
+            Point size = new Point();
+
+            if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
+                size.set(display.getWidth(), display.getHeight());
+            } else {
+                display.getSize(size);
+            }
+            return size;
         }
 
         public void select(int position) {
@@ -424,8 +441,13 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
             this.yearNumber = yearNumber;
         }
 
-        private Date getDate() {
-            return new Date(year - 1900, month, number);
+        private Calendar getDate() {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.YEAR, yearNumber);
+            calendar.set(Calendar.MONTH, monthNumber);
+            calendar.set(Calendar.DAY_OF_MONTH, number);
+            calendar.getTimeInMillis();
+            return calendar;
         }
 
         public void setHasEvent(boolean hasEvent) {
@@ -475,18 +497,29 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
 
         public boolean isToday(int row, int column) {
             Calendar c = Calendar.getInstance();
-            if (c.get(Calendar.YEAR) == getYear() && c.get(Calendar.DAY_OF_MONTH) == getDayAt(row, column) && c.get(Calendar.MONTH) == getMonth(row, column))
-                return true;
-            return false;
+            return (c.get(Calendar.YEAR) == getYear() &&
+                    c.get(Calendar.DAY_OF_MONTH) == getDayAt(row, column) &&
+                    c.get(Calendar.MONTH) == getMonth(row, column));
         }
 
         public boolean hasEvt(int row, int column) {
-            return (dates.indexOf(new Date(getYear(row, column) - 1900, getMonth(row, column), getDayAt(row, column))) > -1);
+            Calendar c = Calendar.getInstance();
+            c.set(Calendar.YEAR, getYear(row, column));
+            c.set(Calendar.MONTH, getMonth(row, column));
+            c.set(Calendar.DAY_OF_MONTH, getDayAt(row, column));
+            c.set(Calendar.HOUR_OF_DAY, 0);
+            c.set(Calendar.MINUTE, 0);
+            c.set(Calendar.SECOND, 0);
+            c.set(Calendar.MILLISECOND, 0);
+            c.getTimeInMillis();
+
+            return (dates.indexOf(c.getTime()) > -1);
         }
     }
 
     public interface OnMonthSelectedListener {
         public void onPreviousMonthSelected(Calendar startCalendar, Calendar endCalendar);
+
         public void onNextMonthSelected(Calendar startCalendar, Calendar endCalendar);
     }
 
@@ -495,7 +528,7 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
     }
 
     public static interface OnDayClickListener {
-        void onItemClick(Date date, View view);
+        void onItemClick(Calendar date);
     }
 
     public void setOnDayClickListener(OnDayClickListener onDayClickListener) {
@@ -505,7 +538,9 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         if (onDayClickListener != null) {
-            onDayClickListener.onItemClick(adapter.getItem(i).getDate(), view);
+            CalendarArrayAdapter adapter = (CalendarArrayAdapter) adapterView.getAdapter();
+            CalendarItem item = (CalendarItem) adapter.getItem(i);
+            onDayClickListener.onItemClick(item.getDate());
         }
     }
 }

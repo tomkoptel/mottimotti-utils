@@ -12,7 +12,7 @@ public class CalendarFilter {
     public CalendarFilter(MonthDisplayHelper helper) {
         this.helper = helper;
         this.startDay = helper.getDayAt(0, 0);
-        this.endDay = helper.getDayAt(4, 6);
+        this.endDay = helper.getDayAt(5, 6);
     }
 
     public Calendar[] getFilters() {
@@ -28,7 +28,7 @@ public class CalendarFilter {
     }
 
     public boolean nextMonthVisible() {
-        int firstDayInLastWeek = helper.getDayAt(4, 0);
+        int firstDayInLastWeek = helper.getDayAt(5, 0);
         int daysInMonth = helper.getNumberOfDaysInMonth();
         return (firstDayInLastWeek + 6 != daysInMonth);
     }
