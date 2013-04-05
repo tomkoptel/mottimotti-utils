@@ -39,13 +39,13 @@ public class CalendarFilter {
 
     private Calendar[] getFiltersForPastAndNextMonth() {
         Calendar previousCalendar = getCurrentCalendar();
-        previousCalendar.set(Calendar.DAY_OF_MONTH, startDay);
         previousCalendar.add(Calendar.MONTH, -1);
+        previousCalendar.set(Calendar.DAY_OF_MONTH, startDay);
         previousCalendar.getTimeInMillis();
 
         Calendar nextCalendar = getCurrentCalendar();
-        nextCalendar.set(Calendar.DAY_OF_MONTH, endDay);
         nextCalendar.add(Calendar.MONTH, 1);
+        nextCalendar.set(Calendar.DAY_OF_MONTH, endDay);
         nextCalendar.getTimeInMillis();
 
         return new Calendar[]{previousCalendar, nextCalendar};
@@ -53,8 +53,8 @@ public class CalendarFilter {
 
     private Calendar[] getFiltersForPastAndCurrentMonth() {
         Calendar previousCalendar = getCurrentCalendar();
-        previousCalendar.set(Calendar.DAY_OF_MONTH, startDay);
         previousCalendar.add(Calendar.MONTH, -1);
+        previousCalendar.set(Calendar.DAY_OF_MONTH, startDay);
         previousCalendar.getTimeInMillis();
 
         Calendar currentCalendar = getCurrentCalendar();
@@ -70,8 +70,8 @@ public class CalendarFilter {
         currentCalendar.getTimeInMillis();
 
         Calendar nextCalendar = getCurrentCalendar();
-        nextCalendar.set(Calendar.DAY_OF_MONTH, endDay);
         nextCalendar.add(Calendar.MONTH, 1);
+        nextCalendar.set(Calendar.DAY_OF_MONTH, endDay);
         nextCalendar.getTimeInMillis();
 
         return new Calendar[]{currentCalendar, nextCalendar};
