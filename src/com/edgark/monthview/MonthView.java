@@ -444,6 +444,10 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
             calendar.set(Calendar.YEAR, yearNumber);
             calendar.set(Calendar.MONTH, monthNumber);
             calendar.set(Calendar.DAY_OF_MONTH, number);
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
             calendar.getTimeInMillis();
             return calendar;
         }
