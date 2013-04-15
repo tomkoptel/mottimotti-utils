@@ -6,7 +6,6 @@ import android.util.MonthDisplayHelper;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import com.edgark.monthview.CalendarFilter;
 
 import java.util.Calendar;
 
@@ -65,13 +64,14 @@ public class CalendarTable extends TableLayout {
     private void initCalendarCells() {
         for (int row = 0; row < ROW_NUMBER; row++) {
             int[] digits = monthDisplayHelper.getDigitsForRow(row);
+            CalendarWeek week = new CalendarWeek(monthDisplayHelper, row, digits);
             initRowCells(digits, row);
         }
     }
 
     private void initRowCells(int[] days, int rowIndex) {
         TableRow row = (TableRow) getChildAt(rowIndex);
-        CalendarCell calendarDay;
+        TextView calendarDay;
 
         for (int i = 0; i < days.length; i++) {
             int day = days[i];

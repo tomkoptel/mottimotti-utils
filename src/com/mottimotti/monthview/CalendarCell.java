@@ -4,14 +4,11 @@ import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.Gravity;
-import android.view.ViewGroup;
+
+import static com.mottimotti.monthview.CalendarDay.State.*;
 
 
 public class CalendarCell extends HelveticaNeueTextView {
-    private static final int REGULAR = 0;
-    private static final int INACTIVE = 1;
-    private static final int ACTIVE = 2;
-    private static final int CURRENT = 3;
 
     public CalendarCell(Context context) {
         super(context);
@@ -35,7 +32,7 @@ public class CalendarCell extends HelveticaNeueTextView {
         return textView;
     }
 
-    public void setState(int state) {
+    public void setState(CalendarDay.State state) {
         switch (state) {
             case REGULAR:
                 applyRegularSettings();
