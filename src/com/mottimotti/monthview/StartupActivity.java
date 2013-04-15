@@ -46,7 +46,7 @@ public class StartupActivity extends Activity implements CalendarTable.OnMonthSe
     }
 
     private void updateMonthPreview() {
-        Calendar calendar = calendarTableLayout.getCurrentCalendar();
+        Calendar calendar = calendarTableLayout.getHelperCalendar();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy - MMMM");
         monthPreview.setText(sdf.format(calendar.getTime()));
     }

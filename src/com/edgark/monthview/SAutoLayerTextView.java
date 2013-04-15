@@ -52,27 +52,4 @@ public class SAutoLayerTextView extends TextView {
         }
         super.setCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom);
     }
-
-    @Override
-    public void setCompoundDrawablesRelativeWithIntrinsicBounds(Drawable startOriginal, Drawable topOriginal,
-                                                        Drawable endOriginal, Drawable bottomOriginal) {
-        Drawable start = startOriginal;
-        Drawable top = topOriginal;
-        Drawable end = endOriginal;
-        Drawable bottom = bottomOriginal;
-
-        if(startOriginal != null) {
-            start = new SAutoLayerDrawable(startOriginal);
-        }
-        if(endOriginal != null) {
-            end = new SAutoLayerDrawable(endOriginal);
-        }
-        if(topOriginal != null) {
-            top = new SAutoLayerDrawable(topOriginal);
-        }
-        if(bottomOriginal != null) {
-            bottom = new SAutoLayerDrawable(bottomOriginal);
-        }
-        super.setCompoundDrawablesRelativeWithIntrinsicBounds(start, top, end, bottom);
-    }
 }

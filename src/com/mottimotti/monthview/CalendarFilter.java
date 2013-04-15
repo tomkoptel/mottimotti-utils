@@ -95,7 +95,13 @@ public class CalendarFilter {
 
     private Calendar getCurrentCalendar() {
         Calendar currentCalendar = Calendar.getInstance();
+        currentCalendar.set(Calendar.YEAR, helper.getYear());
         currentCalendar.set(Calendar.MONTH, helper.getMonth());
+        currentCalendar.set(Calendar.DAY_OF_MONTH, 1);
+        currentCalendar.set(Calendar.HOUR_OF_DAY, 0);
+        currentCalendar.set(Calendar.MINUTE, 0);
+        currentCalendar.set(Calendar.SECOND, 0);
+        currentCalendar.set(Calendar.MILLISECOND, 0);
         currentCalendar.getTimeInMillis();
         return currentCalendar;
     }

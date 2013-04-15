@@ -7,11 +7,13 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 
 public class CalendarTable extends TableLayout {
-    private static final int ROW_NUMBER = 5;
+    private static final int ROW_NUMBER = 6;
 
     private MonthDisplayHelper monthDisplayHelper;
     private OnMonthSelectedListener monthSelectedListener;
@@ -40,6 +42,7 @@ public class CalendarTable extends TableLayout {
         initMonthDisplayHelper();
         initCalendarRows();
         initCalendarCells();
+        showLastRowIfNeed();
     }
 
     private void initMonthDisplayHelper() {
@@ -63,20 +66,24 @@ public class CalendarTable extends TableLayout {
 
     private void initCalendarCells() {
         for (int row = 0; row < ROW_NUMBER; row++) {
-            int[] digits = monthDisplayHelper.getDigitsForRow(row);
-            CalendarWeek week = new CalendarWeek(monthDisplayHelper, row, digits);
-            initRowCells(digits, row);
+            CalendarWeek week = new CalendarWeek(monthDisplayHelper, row);
+            initRowCells(week, row);
         }
     }
 
-    private void initRowCells(int[] days, int rowIndex) {
-        TableRow row = (TableRow) getChildAt(rowIndex);
-        TextView calendarDay;
+    private void showLastRowIfNeed() {
+        boolean withinCurrentMonth = monthDisplayHelper.isWithinCurrentMonth(ROW_NUMBER - 1, 0);
+        getChildAt(ROW_NUMBER - 1).setVisibility(withinCurrentMonth ? VISIBLE : GONE);
+    }
 
-        for (int i = 0; i < days.length; i++) {
-            int day = days[i];
+    private void initRowCells(CalendarWeek week, int rowIndex) {
+        TableRow row = (TableRow) getChildAt(rowIndex);
+        CalendarCell calendarDay;
+        List<CalendarDay> days = week.getDays();
+        for (CalendarDay day : days) {
             calendarDay = CalendarCell.instantiate(getContext());
-            calendarDay.setText(String.valueOf(day));
+            calendarDay.setState(day.getState());
+            calendarDay.setText(day.toString());
             row.addView(calendarDay);
         }
     }
@@ -94,6 +101,8 @@ public class CalendarTable extends TableLayout {
     }
 
     private void updateCalendarTable() {
+        showLastRowIfNeed();
+
         int rowsCount = getChildCount();
         for (int row = 0; row < rowsCount; row++) {
             TableRow rowView = (TableRow) getChildAt(row);
@@ -102,12 +111,16 @@ public class CalendarTable extends TableLayout {
     }
 
     private void updateRowCells(TableRow rowView, int row) {
-        TextView cell;
+        CalendarCell cell;
         int columnsCount = rowView.getChildCount();
+        CalendarWeek week = new CalendarWeek(monthDisplayHelper, row);
+        List<CalendarDay> days = week.getDays();
+
         for (int column = 0; column < columnsCount; column++) {
-            cell = (TextView) rowView.getChildAt(column);
-            int day = monthDisplayHelper.getDayAt(row, column);
-            cell.setText(String.valueOf(day));
+            cell = (CalendarCell) rowView.getChildAt(column);
+            CalendarDay day = days.get(column);
+            cell.setState(day.getState());
+            cell.setText(day.toString());
         }
     }
 
@@ -130,7 +143,7 @@ public class CalendarTable extends TableLayout {
         return calendarFilters.getFilters();
     }
 
-    public Calendar getCurrentCalendar() {
+    public Calendar getHelperCalendar() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, monthDisplayHelper.getYear());
         calendar.set(Calendar.MONTH, monthDisplayHelper.getMonth());

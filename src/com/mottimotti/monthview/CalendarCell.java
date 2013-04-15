@@ -5,9 +5,6 @@ import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.Gravity;
 
-import static com.mottimotti.monthview.CalendarDay.State.*;
-
-
 public class CalendarCell extends HelveticaNeueTextView {
 
     public CalendarCell(Context context) {
@@ -28,14 +25,17 @@ public class CalendarCell extends HelveticaNeueTextView {
         textView.setShadowLayer(2f, 1, 1, Color.BLACK);
         textView.setGravity(Gravity.CENTER);
         textView.setClickable(true);
-        textView.setState(REGULAR);
+        textView.setState(DayState.REGULAR);
         return textView;
     }
 
-    public void setState(CalendarDay.State state) {
+    public void setState(DayState state) {
         switch (state) {
             case REGULAR:
                 applyRegularSettings();
+                break;
+            case BLOCKED:
+                applyBlockedState();
                 break;
             case INACTIVE:
                 applyInActiveSettings();
@@ -45,26 +45,36 @@ public class CalendarCell extends HelveticaNeueTextView {
                 break;
             case CURRENT:
                 applyCurrentState();
+                break;
         }
     }
 
     private void applyRegularSettings() {
         setTextColor(getResources().getColor(R.color.cell_regular));
         setBackgroundResource(R.drawable.cell);
+        setClickable(true);
+    }
+
+    private void applyBlockedState() {
+        applyInActiveSettings();
+        setClickable(false);
     }
 
     private void applyInActiveSettings() {
         setTextColor(getResources().getColor(R.color.cell_inactive));
         setBackgroundResource(R.drawable.cell);
+        setClickable(true);
     }
 
     private void applyActiveSettings() {
         setTextColor(getResources().getColor(R.color.cell_regular));
-        setBackgroundResource(R.drawable.cell);
+        setBackgroundResource(R.drawable.cell_active);
+        setClickable(true);
     }
 
     private void applyCurrentState() {
         setTextColor(getResources().getColor(android.R.color.white));
-        setBackgroundResource(R.drawable.cell);
+        setBackgroundResource(R.drawable.cell_current);
+        setClickable(true);
     }
 }
