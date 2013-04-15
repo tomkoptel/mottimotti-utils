@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="cell_regular">#9e9e9e</color>
+    <color name="cell_inactive">#d7d7d7</color>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.mottimotti.monthview.HelveticaNeueTextView
+
+    style="@style/DayFont.Regular"/>
+

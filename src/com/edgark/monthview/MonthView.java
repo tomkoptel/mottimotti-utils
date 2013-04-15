@@ -521,7 +521,6 @@ public class MonthView extends LinearLayout implements AdapterView.OnItemClickLi
 
     public interface OnMonthSelectedListener {
         public void onPreviousMonthSelected(Calendar startCalendar, Calendar endCalendar);
-
         public void onNextMonthSelected(Calendar startCalendar, Calendar endCalendar);
     }
 

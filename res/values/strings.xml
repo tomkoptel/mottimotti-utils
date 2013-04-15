@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ACTIVITY_ENTRY_NAME</string>
+    <string name="app_name">Month View</string>
+    <string name="previous_month"><![CDATA[<]]></string>
+    <string name="next_month"><![CDATA[>]]></string>
 </resources>
