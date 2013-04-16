@@ -1,9 +1,14 @@
 package com.mottimotti.monthview;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.MonthDisplayHelper;
+import android.util.SparseArray;
+import android.view.ViewDebug;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
@@ -144,6 +149,69 @@ public class CalendarTable extends TableLayout implements CalendarCell.CellClick
 
     public boolean isFutureDaysBlocked() {
         return blockFutureDays;
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        if(!(state instanceof SavedState)) {
+            super.onRestoreInstanceState(state);
+            return;
+        }
+
+        SavedState savedState = (SavedState) state;
+        super.onRestoreInstanceState(savedState.getSuperState());
+
+        int year = savedState.currentYear;
+        int month = savedState.currentMonth;
+        monthDisplayHelper = new MonthDisplayHelper(year, month);
+        updateCalendarTable();
+        requestLayout();
+    }
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+        Calendar calendar = getHelperCalendar();
+        Parcelable superState = super.onSaveInstanceState();
+        SavedState savedState = new SavedState(superState);
+        savedState.currentYear = calendar.get(Calendar.YEAR);
+        savedState.currentMonth = calendar.get(Calendar.MONTH);
+        return savedState;
+    }
+
+    static class SavedState extends BaseSavedState {
+        int currentMonth;
+        int currentYear;
+
+        public SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        private SavedState(Parcel in) {
+            super(in);
+            int[] val = new int[2];
+            in.readIntArray(val);
+            currentYear = val[0];
+            currentMonth = val[1];
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            super.writeToParcel(dest, flags);
+            dest.writeIntArray(new int[]{currentYear, currentMonth});
+        }
+
+        @SuppressWarnings("UnusedDeclaration")
+        public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
+            @Override
+            public SavedState createFromParcel(Parcel in) {
+                return new SavedState(in);
+            }
+
+            @Override
+            public SavedState[] newArray(int size) {
+                return new SavedState[size];
+            }
+        };
     }
 
     private OnMonthSelectedListener monthSelectedListener;

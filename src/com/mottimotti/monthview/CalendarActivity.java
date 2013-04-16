@@ -2,6 +2,7 @@ package com.mottimotti.monthview;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +28,21 @@ public class CalendarActivity extends Activity
         calendarTableLayout.setOnMonthSelectedListener(this);
         calendarTableLayout.setCellClickListener(this);
 
+        updateMonthPreview();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        Parcelable parcelable = calendarTableLayout.onSaveInstanceState();
+        outState.putParcelable("table", parcelable);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedState) {
+        super.onRestoreInstanceState(savedState);
+        Parcelable parcelable = savedState.getParcelable("table");
+        calendarTableLayout.onRestoreInstanceState(parcelable);
         updateMonthPreview();
     }
 
