@@ -12,8 +12,10 @@ import android.view.ViewDebug;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
+import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 
 public class CalendarTable extends TableLayout implements CalendarCell.CellClickListener {
@@ -56,7 +58,7 @@ public class CalendarTable extends TableLayout implements CalendarCell.CellClick
         int match_parent = TableRow.LayoutParams.MATCH_PARENT;
         TableRow.LayoutParams params = new TableRow.LayoutParams(match_parent, wrap_content);
 
-        for (int i = 0; i < ROW_NUMBER; i++) {
+        for (int i = 0; i < ROW_NUMBER + 1; i++) {
             TableRow tableRow = new TableRow(getContext());
             tableRow.setLayoutParams(params);
             addView(tableRow);
@@ -64,19 +66,31 @@ public class CalendarTable extends TableLayout implements CalendarCell.CellClick
     }
 
     private void initCalendarCells() {
+//        initCalendarHeader();
+        initCalendarBody();
+    }
+
+    private void initCalendarHeader() {
+        TableRow row = (TableRow) getChildAt(0);
+        DateFormatSymbols symbols = new DateFormatSymbols(new Locale("it"));
+        String[] dayNames = symbols.getShortWeekdays();
+        for (String dayName : dayNames) {
+            CalendarCell cell = new CalendarCell(getContext());
+            cell.setState(DayState.REGULAR);
+            cell.setText(dayName);
+            row.addView(cell);
+        }
+    }
+
+    private void initCalendarBody() {
         for (int row = 0; row < ROW_NUMBER; row++) {
             CalendarWeek week = new CalendarWeek(this, row);
             initRowCells(week, row);
         }
     }
 
-    private void showLastRowIfNeed() {
-        boolean withinCurrentMonth = monthDisplayHelper.isWithinCurrentMonth(ROW_NUMBER - 1, 0);
-        getChildAt(ROW_NUMBER - 1).setVisibility(withinCurrentMonth ? VISIBLE : GONE);
-    }
-
     private void initRowCells(CalendarWeek week, int rowIndex) {
-        TableRow row = (TableRow) getChildAt(rowIndex);
+        TableRow row = (TableRow) getChildAt(rowIndex + 1);
         CalendarCell calendarDay;
         List<CalendarDay> days = week.getDays();
         for (CalendarDay day : days) {
@@ -85,6 +99,11 @@ public class CalendarTable extends TableLayout implements CalendarCell.CellClick
             calendarDay.setDay(day);
             row.addView(calendarDay);
         }
+    }
+
+    private void showLastRowIfNeed() {
+        boolean withinCurrentMonth = monthDisplayHelper.isWithinCurrentMonth(ROW_NUMBER - 1, 0);
+        getChildAt(ROW_NUMBER).setVisibility(withinCurrentMonth ? VISIBLE : GONE);
     }
 
     @Override
@@ -108,16 +127,16 @@ public class CalendarTable extends TableLayout implements CalendarCell.CellClick
         showLastRowIfNeed();
 
         int rowsCount = getChildCount();
-        for (int row = 0; row < rowsCount; row++) {
+        for (int row = 1; row < rowsCount; row++) {
             TableRow rowView = (TableRow) getChildAt(row);
-            updateRowCells(rowView, row);
+            updateRowCells(rowView, row - 1);
         }
     }
 
-    private void updateRowCells(TableRow rowView, int row) {
+    private void updateRowCells(TableRow rowView, int rowIndex) {
         CalendarCell cell;
         int columnsCount = rowView.getChildCount();
-        CalendarWeek week = new CalendarWeek(this, row);
+        CalendarWeek week = new CalendarWeek(this, rowIndex);
         List<CalendarDay> days = week.getDays();
 
         for (int column = 0; column < columnsCount; column++) {
@@ -153,7 +172,7 @@ public class CalendarTable extends TableLayout implements CalendarCell.CellClick
 
     @Override
     public void onRestoreInstanceState(Parcelable state) {
-        if(!(state instanceof SavedState)) {
+        if (!(state instanceof SavedState)) {
             super.onRestoreInstanceState(state);
             return;
         }
