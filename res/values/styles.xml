@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="CellFont">
-        <item name="android:textSize">25sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
+
 
     <style name="DayFont">
         <item name="android:clickable">true</item>
@@ -27,5 +24,46 @@
     <style name="DayFont.Faded">
         <item name="android:textColor">#d7d7d7</item>
         <item name="android:background">@drawable/cell</item>
+    </style>
+
+    <style name="Calendar">
+        <item name="blockFutureDays">true</item>
+
+        <item name="blockedStateDrawable">@drawable/cell</item>
+        <item name="blockedStateTextAppearance">@style/CellFont.Inactive</item>
+        <item name="blockedStateTypeface">fonts/helvetica_neue_bold.ttf</item>
+
+        <item name="regularStateDrawable">@drawable/cell</item>
+        <item name="regularStateTextAppearance">@style/CellFont.Regular</item>
+        <item name="regularStateTypeface">fonts/helvetica_neue_bold.ttf</item>
+
+        <item name="inactiveStateDrawable">@drawable/cell</item>
+        <item name="inactiveStateTextAppearance">@style/CellFont.Inactive</item>
+        <item name="inactiveStateTypeface">fonts/helvetica_neue_bold.ttf</item>
+
+        <item name="activeStateDrawable">@drawable/cell_active</item>
+        <item name="activeStateTextAppearance">@style/CellFont.Regular</item>
+        <item name="activeStateTypeface">fonts/helvetica_neue_bold.ttf</item>
+
+        <item name="currentStateDrawable">@drawable/cell_current</item>
+        <item name="currentStateTextAppearance">@style/CellFont.Current</item>
+        <item name="currentStateTypeface">fonts/helvetica_neue_bold.ttf</item>
+    </style>
+
+    <style name="CellFont">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CellFont.Regular">
+        <item name="android:textColor">@color/default_cell_text_regular</item>
+    </style>
+
+    <style name="CellFont.Inactive">
+        <item name="android:textColor">@color/default_cell_text_inactive</item>
+    </style>
+
+    <style name="CellFont.Current">
+        <item name="android:textColor">@android:color/white</item>
     </style>
 </resources>

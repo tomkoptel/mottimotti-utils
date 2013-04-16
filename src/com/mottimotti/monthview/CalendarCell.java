@@ -1,11 +1,32 @@
 package com.mottimotti.monthview;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.Gravity;
 
-public class CalendarCell extends HelveticaNeueTextView {
+class CalendarCell extends SAutoLayerTextView {
+    private int blockedStateDrawable;
+    private int blockedStateTextAppearance;
+    private String blockedStateTypeface;
+
+    private int regularStateDrawable;
+    private int regularStateTextAppearance;
+    private String regularStateTypeface;
+
+    private int inactiveStateDrawable;
+    private int inactiveStateTextAppearance;
+    private String inactiveStateTypeface;
+
+    private int activeStateDrawable;
+    private int activeStateTextAppearance;
+    private String activeStateTypeface;
+
+    private int currentStateDrawable;
+    private int currentStateTextAppearance;
+    private String currentStateTypeface;
 
     public CalendarCell(Context context) {
         super(context);
@@ -13,14 +34,48 @@ public class CalendarCell extends HelveticaNeueTextView {
 
     public CalendarCell(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init(context, attrs);
+    }
+
+    private void init(Context context, AttributeSet attrs) {
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.CalendarCell);
+        loadResources(array);
     }
 
     public CalendarCell(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        init(context, attrs, defStyle);
     }
 
-    public static CalendarCell instantiate(Context context) {
-        CalendarCell textView = new CalendarCell(context);
+    private void init(Context context, AttributeSet attrs, int defStyle) {
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.CalendarCell, defStyle, 0);
+        loadResources(array);
+    }
+
+    private void loadResources(TypedArray a) {
+        blockedStateDrawable = a.getResourceId(R.styleable.CalendarCell_blockedStateDrawable, android.R.color.transparent);
+        blockedStateTextAppearance = a.getResourceId(R.styleable.CalendarCell_blockedStateTextAppearance, android.R.style.TextAppearance_Medium);
+        blockedStateTypeface = a.getString(R.styleable.CalendarCell_blockedStateTypeface);
+
+        regularStateDrawable = a.getResourceId(R.styleable.CalendarCell_regularStateDrawable, android.R.color.transparent);
+        regularStateTextAppearance = a.getResourceId(R.styleable.CalendarCell_regularStateTextAppearance, android.R.style.TextAppearance_Medium);
+        regularStateTypeface = a.getString(R.styleable.CalendarCell_regularStateTypeface);
+
+        inactiveStateDrawable = a.getResourceId(R.styleable.CalendarCell_inactiveStateDrawable, android.R.color.transparent);
+        inactiveStateTextAppearance = a.getResourceId(R.styleable.CalendarCell_inactiveStateTextAppearance, android.R.style.TextAppearance_Medium);
+        inactiveStateTypeface = a.getString(R.styleable.CalendarCell_inactiveStateTypeface);
+
+        activeStateDrawable = a.getResourceId(R.styleable.CalendarCell_activeStateDrawable, android.R.color.transparent);
+        activeStateTextAppearance = a.getResourceId(R.styleable.CalendarCell_activeStateTextAppearance, android.R.style.TextAppearance_Medium);
+        activeStateTypeface = a.getString(R.styleable.CalendarCell_activeStateTypeface);
+
+        currentStateDrawable = a.getResourceId(R.styleable.CalendarCell_currentStateDrawable, android.R.color.transparent);
+        currentStateTextAppearance = a.getResourceId(R.styleable.CalendarCell_currentStateTextAppearance, android.R.style.TextAppearance_Medium);
+        currentStateTypeface = a.getString(R.styleable.CalendarCell_currentStateTypeface);
+    }
+
+    public static CalendarCell instantiate(Context context, AttributeSet attrs) {
+        CalendarCell textView = new CalendarCell(context, attrs);
         textView.setTextAppearance(context, R.style.CellFont);
         textView.setShadowLayer(2f, 1, 1, Color.BLACK);
         textView.setGravity(Gravity.CENTER);
@@ -31,11 +86,11 @@ public class CalendarCell extends HelveticaNeueTextView {
 
     public void setState(DayState state) {
         switch (state) {
-            case REGULAR:
-                applyRegularSettings();
-                break;
             case BLOCKED:
                 applyBlockedState();
+                break;
+            case REGULAR:
+                applyRegularSettings();
                 break;
             case INACTIVE:
                 applyInActiveSettings();
@@ -50,31 +105,43 @@ public class CalendarCell extends HelveticaNeueTextView {
     }
 
     private void applyRegularSettings() {
-        setTextColor(getResources().getColor(R.color.cell_regular));
-        setBackgroundResource(R.drawable.cell);
+        setTextAppearance(getContext(), regularStateTextAppearance);
+        setBackgroundResource(regularStateDrawable);
+        loadTypeface(regularStateTypeface);
         setClickable(true);
     }
 
     private void applyBlockedState() {
-        applyInActiveSettings();
+        setTextAppearance(getContext(), blockedStateTextAppearance);
+        setBackgroundResource(blockedStateDrawable);
+        loadTypeface(blockedStateTypeface);
         setClickable(false);
     }
 
     private void applyInActiveSettings() {
-        setTextColor(getResources().getColor(R.color.cell_inactive));
-        setBackgroundResource(R.drawable.cell);
+        setTextAppearance(getContext(), inactiveStateTextAppearance);
+        setBackgroundResource(inactiveStateDrawable);
+        loadTypeface(inactiveStateTypeface);
         setClickable(true);
     }
 
     private void applyActiveSettings() {
-        setTextColor(getResources().getColor(R.color.cell_regular));
-        setBackgroundResource(R.drawable.cell_active);
+        setTextAppearance(getContext(), activeStateTextAppearance);
+        setBackgroundResource(activeStateDrawable);
+        loadTypeface(activeStateTypeface);
         setClickable(true);
     }
 
     private void applyCurrentState() {
-        setTextColor(getResources().getColor(android.R.color.white));
-        setBackgroundResource(R.drawable.cell_current);
+        setTextAppearance(getContext(), currentStateTextAppearance);
+        setBackgroundResource(currentStateDrawable);
+        loadTypeface(currentStateTypeface);
         setClickable(true);
+    }
+
+    private void loadTypeface(String typefaceReference) {
+        if (typefaceReference == null) return;
+        Typeface type = Typeface.createFromAsset(getContext().getAssets(), typefaceReference);
+        setTypeface(type);
     }
 }

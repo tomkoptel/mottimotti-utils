@@ -1,6 +1,7 @@
 package com.mottimotti.monthview;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.MonthDisplayHelper;
 import android.widget.TableLayout;
@@ -17,6 +18,8 @@ public class CalendarTable extends TableLayout {
 
     private MonthDisplayHelper monthDisplayHelper;
     private OnMonthSelectedListener monthSelectedListener;
+    private AttributeSet attrs;
+    private boolean blockFutureDays;
 
 
     public interface OnMonthSelectedListener {
@@ -30,11 +33,15 @@ public class CalendarTable extends TableLayout {
 
     public CalendarTable(Context context) {
         super(context);
-        init();
     }
 
     public CalendarTable(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.attrs = attrs;
+
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.CalendarTable);
+        blockFutureDays = array.getBoolean(R.styleable.CalendarTable_blockFutureDays, false);
+
         init();
     }
 
@@ -66,7 +73,7 @@ public class CalendarTable extends TableLayout {
 
     private void initCalendarCells() {
         for (int row = 0; row < ROW_NUMBER; row++) {
-            CalendarWeek week = new CalendarWeek(monthDisplayHelper, row);
+            CalendarWeek week = new CalendarWeek(this, row);
             initRowCells(week, row);
         }
     }
@@ -81,7 +88,7 @@ public class CalendarTable extends TableLayout {
         CalendarCell calendarDay;
         List<CalendarDay> days = week.getDays();
         for (CalendarDay day : days) {
-            calendarDay = CalendarCell.instantiate(getContext());
+            calendarDay = CalendarCell.instantiate(getContext(), attrs);
             calendarDay.setState(day.getState());
             calendarDay.setText(day.toString());
             row.addView(calendarDay);
@@ -113,7 +120,7 @@ public class CalendarTable extends TableLayout {
     private void updateRowCells(TableRow rowView, int row) {
         CalendarCell cell;
         int columnsCount = rowView.getChildCount();
-        CalendarWeek week = new CalendarWeek(monthDisplayHelper, row);
+        CalendarWeek week = new CalendarWeek(this, row);
         List<CalendarDay> days = week.getDays();
 
         for (int column = 0; column < columnsCount; column++) {
@@ -153,5 +160,13 @@ public class CalendarTable extends TableLayout {
         calendar.set(Calendar.SECOND, 0);
         calendar.getTimeInMillis();
         return calendar;
+    }
+
+    public MonthDisplayHelper getMonthDisplayHelper() {
+        return monthDisplayHelper;
+    }
+
+    public boolean isFutureDaysBlocked() {
+        return blockFutureDays;
     }
 }

@@ -5,7 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-public class SAutoLayerTextView extends TextView {
+class SAutoLayerTextView extends TextView {
     public SAutoLayerTextView(Context context) {
         super(context);
     }
@@ -20,14 +20,22 @@ public class SAutoLayerTextView extends TextView {
 
     @Override
     public void setBackgroundDrawable(Drawable d) {
+        if (d == null) return;
         SAutoLayerDrawable layer = new SAutoLayerDrawable(d);
         super.setBackgroundDrawable(layer);
     }
 
     @Override
     public void setBackground(Drawable d) {
+        if (d == null) return;
         SAutoLayerDrawable layer = new SAutoLayerDrawable(d);
-        super.setBackground(layer);
+
+        int sdk = android.os.Build.VERSION.SDK_INT;
+        if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            super.setBackgroundDrawable(layer);
+        } else {
+            super.setBackground(layer);
+        }
     }
 
     @Override
@@ -38,16 +46,16 @@ public class SAutoLayerTextView extends TextView {
         Drawable right = rightOriginal;
         Drawable bottom = bottomOriginal;
 
-        if(leftOriginal != null) {
+        if (leftOriginal != null) {
             left = new SAutoLayerDrawable(leftOriginal);
         }
-        if(rightOriginal != null) {
+        if (rightOriginal != null) {
             right = new SAutoLayerDrawable(rightOriginal);
         }
-        if(topOriginal != null) {
+        if (topOriginal != null) {
             top = new SAutoLayerDrawable(topOriginal);
         }
-        if(bottomOriginal != null) {
+        if (bottomOriginal != null) {
             bottom = new SAutoLayerDrawable(bottomOriginal);
         }
         super.setCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom);
@@ -55,22 +63,22 @@ public class SAutoLayerTextView extends TextView {
 
     @Override
     public void setCompoundDrawablesRelativeWithIntrinsicBounds(Drawable startOriginal, Drawable topOriginal,
-                                                        Drawable endOriginal, Drawable bottomOriginal) {
+                                                                Drawable endOriginal, Drawable bottomOriginal) {
         Drawable start = startOriginal;
         Drawable top = topOriginal;
         Drawable end = endOriginal;
         Drawable bottom = bottomOriginal;
 
-        if(startOriginal != null) {
+        if (startOriginal != null) {
             start = new SAutoLayerDrawable(startOriginal);
         }
-        if(endOriginal != null) {
+        if (endOriginal != null) {
             end = new SAutoLayerDrawable(endOriginal);
         }
-        if(topOriginal != null) {
+        if (topOriginal != null) {
             top = new SAutoLayerDrawable(topOriginal);
         }
-        if(bottomOriginal != null) {
+        if (bottomOriginal != null) {
             bottom = new SAutoLayerDrawable(bottomOriginal);
         }
         super.setCompoundDrawablesRelativeWithIntrinsicBounds(start, top, end, bottom);

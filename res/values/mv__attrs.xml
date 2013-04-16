@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CalendarTable">
+        <attr name="blockFutureDays" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="CalendarCell">
+        <attr name="blockedStateDrawable" format="integer"/>
+        <!--Sets the text color, size, style, hint color, and highlight color from the specified TextAppearance resource.-->
+        <attr name="blockedStateTextAppearance" format="integer"/>
+        <!--Sets the text color, typeface reference. It can be done using assets/fonts folder. -->
+        <attr name="blockedStateTypeface" format="string"/>
+
+        <attr name="regularStateDrawable" format="integer"/>
+        <attr name="regularStateTextAppearance" format="integer"/>
+        <attr name="regularStateTypeface" format="string"/>
+
+        <attr name="inactiveStateDrawable" format="integer"/>
+        <attr name="inactiveStateTextAppearance" format="integer"/>
+        <attr name="inactiveStateTypeface" format="string"/>
+
+        <attr name="activeStateDrawable" format="integer"/>
+        <attr name="activeStateTextAppearance" format="integer"/>
+        <attr name="activeStateTypeface" format="string"/>
+
+        <attr name="currentStateDrawable" format="integer"/>
+        <attr name="currentStateTextAppearance" format="integer"/>
+        <attr name="currentStateTypeface" format="string"/>
+    </declare-styleable>
+</resources>
