@@ -6,8 +6,11 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.View;
 
-class CalendarCell extends SAutoLayerTextView {
+import java.util.Calendar;
+
+class CalendarCell extends SAutoLayerTextView implements View.OnClickListener {
     private int blockedStateDrawable;
     private int blockedStateTextAppearance;
     private String blockedStateTypeface;
@@ -27,6 +30,7 @@ class CalendarCell extends SAutoLayerTextView {
     private int currentStateDrawable;
     private int currentStateTextAppearance;
     private String currentStateTypeface;
+    private CalendarDay day;
 
     public CalendarCell(Context context) {
         super(context);
@@ -40,6 +44,7 @@ class CalendarCell extends SAutoLayerTextView {
     private void init(Context context, AttributeSet attrs) {
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.CalendarCell);
         loadResources(array);
+        setListeners();
     }
 
     public CalendarCell(Context context, AttributeSet attrs, int defStyle) {
@@ -50,6 +55,7 @@ class CalendarCell extends SAutoLayerTextView {
     private void init(Context context, AttributeSet attrs, int defStyle) {
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.CalendarCell, defStyle, 0);
         loadResources(array);
+        setListeners();
     }
 
     private void loadResources(TypedArray a) {
@@ -72,6 +78,10 @@ class CalendarCell extends SAutoLayerTextView {
         currentStateDrawable = a.getResourceId(R.styleable.CalendarCell_currentStateDrawable, android.R.color.transparent);
         currentStateTextAppearance = a.getResourceId(R.styleable.CalendarCell_currentStateTextAppearance, android.R.style.TextAppearance_Medium);
         currentStateTypeface = a.getString(R.styleable.CalendarCell_currentStateTypeface);
+    }
+
+    private void setListeners() {
+        setOnClickListener(this);
     }
 
     public static CalendarCell instantiate(Context context, AttributeSet attrs) {
@@ -143,5 +153,32 @@ class CalendarCell extends SAutoLayerTextView {
         if (typefaceReference == null) return;
         Typeface type = Typeface.createFromAsset(getContext().getAssets(), typefaceReference);
         setTypeface(type);
+    }
+
+    public void setDay(CalendarDay day) {
+        this.day = day;
+        setState(day.getState());
+        setText(day.toString());
+    }
+
+    @Override
+    public void onClick(View v) {
+        dispatchCellClickListener();
+    }
+
+    private CellClickListener clickListener;
+
+    public interface CellClickListener {
+        public void onClick(Calendar selectedCalendar);
+    }
+
+    public void setCellClickListener(CellClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
+
+    private void dispatchCellClickListener() {
+        if (clickListener != null && day != null) {
+            clickListener.onClick(day.getCalendar());
+        }
     }
 }

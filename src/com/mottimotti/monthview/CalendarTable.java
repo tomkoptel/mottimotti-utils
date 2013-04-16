@@ -6,30 +6,17 @@ import android.util.AttributeSet;
 import android.util.MonthDisplayHelper;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 
-public class CalendarTable extends TableLayout {
+public class CalendarTable extends TableLayout implements CalendarCell.CellClickListener {
     private static final int ROW_NUMBER = 6;
 
     private MonthDisplayHelper monthDisplayHelper;
-    private OnMonthSelectedListener monthSelectedListener;
     private AttributeSet attrs;
     private boolean blockFutureDays;
-
-
-    public interface OnMonthSelectedListener {
-        public void onPreviousMonthSelected(Calendar startCalendar, Calendar endCalendar);
-        public void onNextMonthSelected(Calendar startCalendar, Calendar endCalendar);
-    }
-
-    public void setOnMonthSelectedListener(OnMonthSelectedListener selectedListener) {
-        this.monthSelectedListener = selectedListener;
-    }
 
     public CalendarTable(Context context) {
         super(context);
@@ -89,10 +76,15 @@ public class CalendarTable extends TableLayout {
         List<CalendarDay> days = week.getDays();
         for (CalendarDay day : days) {
             calendarDay = CalendarCell.instantiate(getContext(), attrs);
-            calendarDay.setState(day.getState());
-            calendarDay.setText(day.toString());
+            calendarDay.setCellClickListener(this);
+            calendarDay.setDay(day);
             row.addView(calendarDay);
         }
+    }
+
+    @Override
+    public void onClick(Calendar selectedCalendar) {
+        dispatchCellClickListener(selectedCalendar);
     }
 
     public void previousMonth() {
@@ -125,23 +117,7 @@ public class CalendarTable extends TableLayout {
 
         for (int column = 0; column < columnsCount; column++) {
             cell = (CalendarCell) rowView.getChildAt(column);
-            CalendarDay day = days.get(column);
-            cell.setState(day.getState());
-            cell.setText(day.toString());
-        }
-    }
-
-    private void dispatchPreviousMonthSelected() {
-        if (monthSelectedListener != null) {
-            Calendar[] calendars = getCurrentCalendars();
-            monthSelectedListener.onPreviousMonthSelected(calendars[0], calendars[1]);
-        }
-    }
-
-    private void dispatchNextMonthSelected() {
-        if (monthSelectedListener != null) {
-            Calendar[] calendars = getCurrentCalendars();
-            monthSelectedListener.onNextMonthSelected(calendars[0], calendars[1]);
+            cell.setDay(days.get(column));
         }
     }
 
@@ -168,5 +144,47 @@ public class CalendarTable extends TableLayout {
 
     public boolean isFutureDaysBlocked() {
         return blockFutureDays;
+    }
+
+    private OnMonthSelectedListener monthSelectedListener;
+
+    public interface OnMonthSelectedListener {
+        public void onPreviousMonthSelected(Calendar startCalendar, Calendar endCalendar);
+
+        public void onNextMonthSelected(Calendar startCalendar, Calendar endCalendar);
+    }
+
+    public void setOnMonthSelectedListener(OnMonthSelectedListener selectedListener) {
+        this.monthSelectedListener = selectedListener;
+    }
+
+    private void dispatchPreviousMonthSelected() {
+        if (monthSelectedListener != null) {
+            Calendar[] calendars = getCurrentCalendars();
+            monthSelectedListener.onPreviousMonthSelected(calendars[0], calendars[1]);
+        }
+    }
+
+    private void dispatchNextMonthSelected() {
+        if (monthSelectedListener != null) {
+            Calendar[] calendars = getCurrentCalendars();
+            monthSelectedListener.onNextMonthSelected(calendars[0], calendars[1]);
+        }
+    }
+
+    private CellClickListener clickListener;
+
+    public interface CellClickListener {
+        public void onClick(Calendar selectedCalendar);
+    }
+
+    public void setCellClickListener(CellClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
+
+    private void dispatchCellClickListener(Calendar calendar) {
+        if (clickListener != null) {
+            clickListener.onClick(calendar);
+        }
     }
 }
