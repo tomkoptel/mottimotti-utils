@@ -31,6 +31,7 @@ class CalendarCell extends SAutoLayerTextView implements View.OnClickListener {
     private int currentStateTextAppearance;
     private String currentStateTypeface;
     private CalendarDay day;
+    private CalendarDay previousDay;
 
     public CalendarCell(Context context) {
         super(context);
@@ -156,8 +157,16 @@ class CalendarCell extends SAutoLayerTextView implements View.OnClickListener {
     }
 
     public void setDay(CalendarDay day) {
+        if (previousDay == null) {
+            this.previousDay = day;
+            setState(day.getState());
+        } else {
+            this.previousDay = this.day;
+            if (previousDay.getState() != day.getState()) {
+                setState(day.getState());
+            }
+        }
         this.day = day;
-        setState(day.getState());
         setText(day.toString());
     }
 
