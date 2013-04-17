@@ -24,6 +24,7 @@ public class CalendarTable extends TableLayout implements CalendarCell.CellClick
     private AttributeSet attrs;
     private boolean blockFutureDays;
     private int weekStartDay;
+    private List<Date> activeDates = new ArrayList<Date>();
 
     public CalendarTable(Context context) {
         super(context);
@@ -179,6 +180,15 @@ public class CalendarTable extends TableLayout implements CalendarCell.CellClick
 
     public boolean isFutureDaysBlocked() {
         return blockFutureDays;
+    }
+
+    public void setActiveDates(List<Date> dates) {
+        this.activeDates = dates;
+        updateCalendarTable();
+    }
+
+    public List<Date> getActiveDates() {
+        return activeDates;
     }
 
     @Override

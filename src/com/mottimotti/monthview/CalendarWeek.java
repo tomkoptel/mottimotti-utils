@@ -15,10 +15,12 @@ class CalendarWeek {
     private final boolean blockFutureDays;
     private final Calendar currentCalendar;
     private final Calendar helperCalendar;
+    private List<Date> activeDates = new ArrayList<Date>();
 
     public CalendarWeek(CalendarTable table, int week) {
         this.monthDisplayHelper = table.getMonthDisplayHelper();
         this.blockFutureDays = table.isFutureDaysBlocked();
+        this.activeDates = table.getActiveDates();
         this.currentCalendar = getCurrentCalendar();
         this.helperCalendar = getHelperCalendar();
 
@@ -41,10 +43,15 @@ class CalendarWeek {
     }
 
     private DayState getDayState(Calendar startCalendar) {
-        if (blockFutureDays) {
-            return getFilteredDayState(startCalendar);
+        // look up for active dates
+        if (activeDates.indexOf(startCalendar.getTime()) != -1) {
+            return DayState.ACTIVE;
         } else {
-            return getGeneralDayState(startCalendar);
+            if (blockFutureDays) {
+                return getFilteredDayState(startCalendar);
+            } else {
+                return getGeneralDayState(startCalendar);
+            }
         }
     }
 

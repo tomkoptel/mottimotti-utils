@@ -8,7 +8,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 
 public class CalendarActivity extends Activity
@@ -28,7 +31,24 @@ public class CalendarActivity extends Activity
         calendarTableLayout.setOnMonthSelectedListener(this);
         calendarTableLayout.setCellClickListener(this);
 
+        populateActiveDates();
         updateMonthPreview();
+    }
+
+    private void populateActiveDates() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        calendar.getTimeInMillis();
+
+        List<Date> activeDates = new ArrayList<Date>();
+        for (int i = 0; i < 5; i++) {
+            calendar.add(Calendar.DAY_OF_MONTH, -1);
+            activeDates.add(calendar.getTime());
+        }
+        calendarTableLayout.setActiveDates(activeDates);
     }
 
     @Override
