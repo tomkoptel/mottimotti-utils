@@ -28,6 +28,7 @@
 
     <style name="Calendar">
         <item name="blockFutureDays">true</item>
+        <item name="weekStartDay">monday</item>
 
         <item name="blockedStateDrawable">@drawable/cell</item>
         <item name="blockedStateTextAppearance">@style/CellFont.Inactive</item>

@@ -13,9 +13,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import java.text.DateFormatSymbols;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 
 public class CalendarTable extends TableLayout implements CalendarCell.CellClickListener {
@@ -24,6 +22,7 @@ public class CalendarTable extends TableLayout implements CalendarCell.CellClick
     private MonthDisplayHelper monthDisplayHelper;
     private AttributeSet attrs;
     private boolean blockFutureDays;
+    private int weekStartDay;
 
     public CalendarTable(Context context) {
         super(context);
@@ -35,6 +34,7 @@ public class CalendarTable extends TableLayout implements CalendarCell.CellClick
 
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.CalendarTable);
         blockFutureDays = array.getBoolean(R.styleable.CalendarTable_blockFutureDays, false);
+        weekStartDay = array.getInt(R.styleable.CalendarTable_weekStartDay, Calendar.SUNDAY);
 
         init();
     }
@@ -50,7 +50,7 @@ public class CalendarTable extends TableLayout implements CalendarCell.CellClick
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
-        monthDisplayHelper = new MonthDisplayHelper(year, month);
+        monthDisplayHelper = new MonthDisplayHelper(year, month, weekStartDay);
     }
 
     private void initCalendarRows() {
@@ -66,17 +66,25 @@ public class CalendarTable extends TableLayout implements CalendarCell.CellClick
     }
 
     private void initCalendarCells() {
-//        initCalendarHeader();
+        initCalendarHeader();
         initCalendarBody();
     }
 
     private void initCalendarHeader() {
         TableRow row = (TableRow) getChildAt(0);
-        DateFormatSymbols symbols = new DateFormatSymbols(new Locale("it"));
+        DateFormatSymbols symbols = new DateFormatSymbols();
         String[] dayNames = symbols.getShortWeekdays();
-        for (String dayName : dayNames) {
-            CalendarCell cell = new CalendarCell(getContext());
-            cell.setState(DayState.REGULAR);
+
+        String[] before = Arrays.copyOfRange(dayNames, 0, weekStartDay);
+        String[] after = Arrays.copyOfRange(dayNames, weekStartDay, dayNames.length);
+        List<String> days = new ArrayList<String>();
+        days.addAll(Arrays.asList(after));
+        days.addAll(Arrays.asList(before));
+
+        for (String dayName : days) {
+            if(dayName.equals("")) continue;
+            CalendarCell cell = CalendarCell.instantiate(getContext(), attrs);
+            cell.setState(DayState.BLOCKED);
             cell.setText(dayName);
             row.addView(cell);
         }
