@@ -35,5 +35,9 @@
         <attr name="currentStateDrawable" format="integer"/>
         <attr name="currentStateTextAppearance" format="integer"/>
         <attr name="currentStateTypeface" format="string"/>
+
+        <attr name="headerStateDrawable" format="integer"/>
+        <attr name="headerStateTextAppearance" format="integer"/>
+        <attr name="headerStateTypeface" format="string"/>
     </declare-styleable>
 </resources>

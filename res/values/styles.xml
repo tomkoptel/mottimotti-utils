@@ -49,6 +49,9 @@
         <item name="currentStateDrawable">@drawable/cell_current</item>
         <item name="currentStateTextAppearance">@style/CellFont.Current</item>
         <item name="currentStateTypeface">fonts/helvetica_neue_bold.ttf</item>
+
+        <item name="headerStateTextAppearance">@android:style/TextAppearance.Medium</item>
+        <item name="headerStateTypeface">fonts/helvetica_neue.ttf</item>
     </style>
 
     <style name="CellFont">
@@ -67,4 +70,6 @@
     <style name="CellFont.Current">
         <item name="android:textColor">@android:color/white</item>
     </style>
+
+
 </resources>

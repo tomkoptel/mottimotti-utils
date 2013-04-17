@@ -30,6 +30,11 @@ class CalendarCell extends SAutoLayerTextView implements View.OnClickListener {
     private int currentStateDrawable;
     private int currentStateTextAppearance;
     private String currentStateTypeface;
+
+    private int headerStateDrawable;
+    private int headerStateTextAppearance;
+    private String headerStateTypeface;
+
     private CalendarDay day;
     private CalendarDay previousDay;
 
@@ -79,6 +84,10 @@ class CalendarCell extends SAutoLayerTextView implements View.OnClickListener {
         currentStateDrawable = a.getResourceId(R.styleable.CalendarCell_currentStateDrawable, android.R.color.transparent);
         currentStateTextAppearance = a.getResourceId(R.styleable.CalendarCell_currentStateTextAppearance, android.R.style.TextAppearance_Medium);
         currentStateTypeface = a.getString(R.styleable.CalendarCell_currentStateTypeface);
+
+        headerStateDrawable = a.getResourceId(R.styleable.CalendarCell_headerStateDrawable, android.R.color.transparent);
+        headerStateTextAppearance = a.getResourceId(R.styleable.CalendarCell_headerStateTextAppearance, android.R.style.TextAppearance_Medium);
+        headerStateTypeface = a.getString(R.styleable.CalendarCell_headerStateTypeface);
     }
 
     private void setListeners() {
@@ -87,7 +96,6 @@ class CalendarCell extends SAutoLayerTextView implements View.OnClickListener {
 
     public static CalendarCell instantiate(Context context, AttributeSet attrs) {
         CalendarCell textView = new CalendarCell(context, attrs);
-        textView.setTextAppearance(context, R.style.CellFont);
         textView.setShadowLayer(2f, 1, 1, Color.BLACK);
         textView.setGravity(Gravity.CENTER);
         textView.setClickable(true);
@@ -97,6 +105,9 @@ class CalendarCell extends SAutoLayerTextView implements View.OnClickListener {
 
     public void setState(DayState state) {
         switch (state) {
+            case HEADER:
+                applyHeaderState();
+                break;
             case BLOCKED:
                 applyBlockedState();
                 break;
@@ -113,6 +124,13 @@ class CalendarCell extends SAutoLayerTextView implements View.OnClickListener {
                 applyCurrentState();
                 break;
         }
+    }
+
+    private void applyHeaderState() {
+        setTextAppearance(getContext(), headerStateTextAppearance);
+        setBackgroundResource(headerStateDrawable);
+        loadTypeface(headerStateTypeface);
+        setClickable(false);
     }
 
     private void applyRegularSettings() {

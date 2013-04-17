@@ -8,6 +8,7 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.MonthDisplayHelper;
 import android.util.SparseArray;
+import android.view.Gravity;
 import android.view.ViewDebug;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -77,15 +78,17 @@ public class CalendarTable extends TableLayout implements CalendarCell.CellClick
 
         String[] before = Arrays.copyOfRange(dayNames, 0, weekStartDay);
         String[] after = Arrays.copyOfRange(dayNames, weekStartDay, dayNames.length);
+
         List<String> days = new ArrayList<String>();
         days.addAll(Arrays.asList(after));
         days.addAll(Arrays.asList(before));
 
         for (String dayName : days) {
             if(dayName.equals("")) continue;
-            CalendarCell cell = CalendarCell.instantiate(getContext(), attrs);
-            cell.setState(DayState.BLOCKED);
-            cell.setText(dayName);
+            CalendarCell cell = new CalendarCell(getContext(), attrs);
+            cell.setGravity(Gravity.CENTER);
+            cell.setState(DayState.HEADER);
+            cell.setText(String.format("%s.", dayName));
             row.addView(cell);
         }
     }
