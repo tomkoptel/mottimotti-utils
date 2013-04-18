@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.mottimotti.android.R;
-import com.mottimotti.android.widget.monthview.CalendarTable;
+import com.mottimotti.android.widget.calendartable.CalendarTable;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

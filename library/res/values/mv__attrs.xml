@@ -19,25 +19,39 @@
         <attr name="blockedStateTextAppearance" format="integer"/>
         <!--Sets the text color, typeface reference. It can be done using assets/fonts folder. -->
         <attr name="blockedStateTypeface" format="string"/>
+        <!--Sets the text shadowColor, shadowRadius, shadowDx, shadowDy reference. -->
+        <attr name="blockedStateTextShadow" format="integer"/>
 
         <attr name="regularStateDrawable" format="integer"/>
         <attr name="regularStateTextAppearance" format="integer"/>
         <attr name="regularStateTypeface" format="string"/>
+        <attr name="regularStateTextShadow" format="integer"/>
 
         <attr name="inactiveStateDrawable" format="integer"/>
         <attr name="inactiveStateTextAppearance" format="integer"/>
         <attr name="inactiveStateTypeface" format="string"/>
+        <attr name="inactiveStateTextShadow" format="integer"/>
 
         <attr name="activeStateDrawable" format="integer"/>
         <attr name="activeStateTextAppearance" format="integer"/>
         <attr name="activeStateTypeface" format="string"/>
+        <attr name="activeStateTextShadow" format="integer"/>
 
         <attr name="currentStateDrawable" format="integer"/>
         <attr name="currentStateTextAppearance" format="integer"/>
         <attr name="currentStateTypeface" format="string"/>
+        <attr name="currentStateTextShadow" format="integer"/>
 
         <attr name="headerStateDrawable" format="integer"/>
         <attr name="headerStateTextAppearance" format="integer"/>
         <attr name="headerStateTypeface" format="string"/>
+        <attr name="headerStateTextShadow" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="CalendarCellTextShadow">
+        <attr name="shadowColor" format="color"/>
+        <attr name="shadowRadius" format="float"/>
+        <attr name="shadowDx" format="integer"/>
+        <attr name="shadowDy" format="integer"/>
     </declare-styleable>
 </resources>

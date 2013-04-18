@@ -86,16 +86,6 @@
          In all cases you must update the value of version-tag below to read 'custom' instead of an integer,
          in order to avoid having your file be overridden by tools such as "android update project"
     -->
-    <!-- version-tag: 1 -->
-    <!--<target name="jar">-->
-        <!--<jar destfile="MonthView.jar" basedir="src/com/edgark/monthview">-->
-            <!--&lt;!&ndash; replace 'com' by what ever you are using &ndash;&gt;-->
-            <!--&lt;!&ndash; as first part of the package name &ndash;&gt;-->
-            <!--&lt;!&ndash; e.g. de, org, ... &ndash;&gt;-->
-            <!--&lt;!&ndash; the ** is important to include the directory recursively &ndash;&gt;-->
-            <!--<include name="com/edgark/**" />-->
-        <!--</jar>-->
-    <!--</target>-->
     <import file="${sdk.dir}/tools/ant/build.xml"/>
 
 </project>

@@ -33,22 +33,27 @@
         <item name="blockedStateDrawable">@drawable/cell</item>
         <item name="blockedStateTextAppearance">@style/CellFont.Inactive</item>
         <item name="blockedStateTypeface">fonts/helvetica_neue_bold.ttf</item>
+        <item name="blockedStateTextShadow">@style/ShadowLayer</item>
 
         <item name="regularStateDrawable">@drawable/cell</item>
         <item name="regularStateTextAppearance">@style/CellFont.Regular</item>
         <item name="regularStateTypeface">fonts/helvetica_neue_bold.ttf</item>
+        <item name="regularStateTextShadow">@style/ShadowLayer</item>
 
         <item name="inactiveStateDrawable">@drawable/cell</item>
         <item name="inactiveStateTextAppearance">@style/CellFont.Inactive</item>
         <item name="inactiveStateTypeface">fonts/helvetica_neue_bold.ttf</item>
+        <item name="inactiveStateTextShadow">@style/ShadowLayer</item>
 
         <item name="activeStateDrawable">@drawable/cell_active</item>
         <item name="activeStateTextAppearance">@style/CellFont.Active</item>
         <item name="activeStateTypeface">fonts/helvetica_neue_bold.ttf</item>
+        <item name="activeStateTextShadow">@style/ShadowLayer</item>
 
         <item name="currentStateDrawable">@drawable/cell_current</item>
         <item name="currentStateTextAppearance">@style/CellFont.Current</item>
         <item name="currentStateTypeface">fonts/helvetica_neue_bold.ttf</item>
+        <item name="currentStateTextShadow">@style/ShadowLayer</item>
 
         <item name="headerStateTextAppearance">@android:style/TextAppearance.Medium</item>
         <item name="headerStateTypeface">fonts/helvetica_neue.ttf</item>
@@ -75,5 +80,11 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <style name="ShadowLayer">
+        <item name="shadowColor">@android:color/black</item>
+        <item name="shadowRadius">1.5</item>
+        <item name="shadowDx">1</item>
+        <item name="shadowDy">1</item>
+    </style>
 
 </resources>
