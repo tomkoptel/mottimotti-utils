@@ -10,7 +10,7 @@
         <version>7</version>
     </parent>
 
-    <groupId>com.mottimotti</groupId>
+    <groupId>com.mottimotti.android</groupId>
     <artifactId>parent</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0</version>
@@ -19,6 +19,13 @@
     <description>Android packages for simplifying developing for MottiMotti.</description>
     <url>https://github.com/tomkoptel/mottimotti-utils.gitr</url>
     <inceptionYear>2013</inceptionYear>
+
+
+    <scm>
+        <url>https://github.com/tomkoptel/mottimotti-utils/</url>
+        <connection>scm:git:git://github.com/tomkoptel/mottimotti-utils.git</connection>
+        <developerConnection>scm:git:git://github.com/tomkoptel/mottimotti-utils.git</developerConnection>
+    </scm>
 
     <modules>
         <module>library</module>

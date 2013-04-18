@@ -1,4 +1,4 @@
-package com.mottimotti.widget.monthview;
+package com.mottimotti.android.widget.monthview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -9,7 +9,7 @@ import android.util.MonthDisplayHelper;
 import android.view.Gravity;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import com.mottimotti.widget.R;
+import com.mottimotti.android.widget.R;
 
 import java.text.DateFormatSymbols;
 import java.util.*;

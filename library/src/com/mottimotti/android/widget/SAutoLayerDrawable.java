@@ -1,4 +1,4 @@
-package com.mottimotti.widget;
+package com.mottimotti.android.widget;
 
 import android.graphics.Color;
 import android.graphics.ColorFilter;

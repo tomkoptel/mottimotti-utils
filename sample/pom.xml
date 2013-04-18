@@ -8,7 +8,7 @@
     <packaging>apk</packaging>
 
     <parent>
-        <groupId>com.mottimotti</groupId>
+        <groupId>com.mottimotti.android</groupId>
         <artifactId>parent</artifactId>
         <version>1.0.0</version>
         <relativePath>../pom.xml</relativePath>
@@ -28,7 +28,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.mottimotti</groupId>
+            <groupId>com.mottimotti.android</groupId>
             <artifactId>library</artifactId>
             <version>${project.version}</version>
             <type>apklib</type>

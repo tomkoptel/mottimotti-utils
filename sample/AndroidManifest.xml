@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.mottimotti.sample">
+          package="com.mottimotti.android">
 
     android:versionCode="1"
     android:versionName="1.0">
@@ -14,7 +14,7 @@
         android:theme="@android:style/Theme.Holo.Light"
         android:label="@string/app_name">
         <activity
-            android:name=".StartupActivity"
+            android:name=".sample.StartupActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CalendarActivity"
+            android:name=".sample.CalendarActivity"
             android:label="@string/app_name" />
     </application>
 </manifest>

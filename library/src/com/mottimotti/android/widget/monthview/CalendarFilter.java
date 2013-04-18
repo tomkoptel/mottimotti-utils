@@ -1,4 +1,4 @@
-package com.mottimotti.widget.monthview;
+package com.mottimotti.android.widget.monthview;
 
 import android.util.MonthDisplayHelper;
 

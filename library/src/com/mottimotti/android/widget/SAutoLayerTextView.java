@@ -1,4 +1,4 @@
-package com.mottimotti.widget;
+package com.mottimotti.android.widget;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

@@ -1,4 +1,4 @@
-package com.mottimotti.widget.monthview;
+package com.mottimotti.android.widget.monthview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -7,8 +7,8 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
-import com.mottimotti.widget.R;
-import com.mottimotti.widget.SAutoLayerTextView;
+import com.mottimotti.android.widget.R;
+import com.mottimotti.android.widget.SAutoLayerTextView;
 
 import java.util.Calendar;
 

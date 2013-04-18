@@ -1,9 +1,10 @@
-package com.mottimotti.sample;
+package com.mottimotti.android.sample;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import com.mottimotti.sample.R;
 
 public class StartupActivity extends Activity {
     @Override

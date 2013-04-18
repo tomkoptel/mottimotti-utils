@@ -1,4 +1,4 @@
-package com.mottimotti.sample;
+package com.mottimotti.android.sample;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -6,7 +6,8 @@ import android.os.Parcelable;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.mottimotti.widget.monthview.CalendarTable;
+import com.mottimotti.android.R;
+import com.mottimotti.android.widget.monthview.CalendarTable;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
