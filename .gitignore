@@ -3,5 +3,6 @@
 out/
 bin/
 gen/
+gen-external-apklibs/
 target/
 tmp/

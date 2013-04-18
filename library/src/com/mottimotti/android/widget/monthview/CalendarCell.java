@@ -7,7 +7,7 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
-import com.mottimotti.android.widget.R;
+import com.mottimotti.android.R;
 import com.mottimotti.android.widget.SAutoLayerTextView;
 
 import java.util.Calendar;

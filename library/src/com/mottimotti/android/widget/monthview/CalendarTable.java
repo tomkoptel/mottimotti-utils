@@ -9,7 +9,7 @@ import android.util.MonthDisplayHelper;
 import android.view.Gravity;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import com.mottimotti.android.widget.R;
+import com.mottimotti.android.R;
 
 import java.text.DateFormatSymbols;
 import java.util.*;

@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import com.mottimotti.sample.R;
+import com.mottimotti.android.R;
 
 public class StartupActivity extends Activity {
     @Override
