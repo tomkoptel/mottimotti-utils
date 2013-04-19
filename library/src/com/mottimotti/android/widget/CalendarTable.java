@@ -357,7 +357,7 @@ public class CalendarTable extends TableLayout {
         }
     }
 
-    private class CalendarCell extends AutoLayerTextView implements View.OnClickListener {
+    private class CalendarCell extends TypeFaceTextView implements View.OnClickListener {
         private CalendarDay day;
         private CalendarDay previousDay;
 
@@ -473,12 +473,6 @@ public class CalendarTable extends TableLayout {
 
                 setShadowLayer(radius, shadowDx, shadowDy, color);
             }
-        }
-
-        private void loadTypeface(String typefaceReference) {
-            if (typefaceReference == null) return;
-            Typeface type = Typeface.createFromAsset(getContext().getAssets(), typefaceReference);
-            setTypeface(type);
         }
 
         public void setDay(CalendarDay day) {
