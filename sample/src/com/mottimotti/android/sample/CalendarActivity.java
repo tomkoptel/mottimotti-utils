@@ -1,11 +1,11 @@
 package com.mottimotti.android.sample;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.actionbarsherlock.app.SherlockActivity;
 import com.mottimotti.android.R;
 import com.mottimotti.android.widget.CalendarTable;
 
@@ -15,8 +15,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class CalendarActivity extends Activity
+public class CalendarActivity extends SherlockActivity
         implements CalendarTable.OnMonthSelectedListener, CalendarTable.CellClickListener {
+
     private CalendarTable calendarTableLayout;
     private TextView monthPreview;
     private Toast toast;
@@ -24,7 +25,7 @@ public class CalendarActivity extends Activity
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_calendar);
+        setContentView(R.layout.sample_calendar_table);
 
         toast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
         monthPreview = (TextView) findViewById(R.id.current_month_view);

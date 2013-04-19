@@ -19,6 +19,7 @@ public class AutoLayerButton extends Button {
         super(context, attrs, defStyle);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void setBackgroundDrawable(Drawable d) {
         if (d == null) return;
@@ -26,6 +27,7 @@ public class AutoLayerButton extends Button {
         super.setBackgroundDrawable(layer);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void setBackground(Drawable d) {
         if (d == null) return;

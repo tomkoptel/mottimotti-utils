@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.mottimotti.android">
+    package="com.mottimotti.android">
 
     android:versionCode="1"
     android:versionName="1.0">
@@ -13,16 +13,33 @@
     <application
         android:theme="@android:style/Theme.Holo.Light"
         android:label="@string/app_name">
+
         <activity
-            android:name=".sample.StartupActivity"
+            android:name=".sample.SampleListActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".sample.CalendarActivity"
-            android:label="@string/app_name" />
+            android:label="DEMO: Calendar table view">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.mottimotti.android.sample.EXAMPLE" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:name=".sample.SegmentedRadioGroupActivity"
+            android:label="DEMO: Segmented radio group">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.mottimotti.android.sample.EXAMPLE" />
+            </intent-filter>
+        </activity>
     </application>
 </manifest>

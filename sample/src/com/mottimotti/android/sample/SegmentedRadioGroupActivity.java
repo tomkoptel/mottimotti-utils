@@ -1,26 +1,19 @@
 package com.mottimotti.android.sample;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.view.View;
+import com.actionbarsherlock.app.SherlockActivity;
 import com.mottimotti.android.R;
-import com.mottimotti.android.app.AnimationSherlockActivity;
 import com.mottimotti.android.widget.RadioGroupSegmented;
 
-public class StartupActivity extends AnimationSherlockActivity {
+public class SegmentedRadioGroupActivity extends SherlockActivity {
     private RadioGroupSegmented radioGroupSegmented;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.sample_segmented_group);
         radioGroupSegmented = (RadioGroupSegmented) findViewById(R.id.radio_group_segmented);
-    }
-
-    public void openCalendarPage(View view) {
-        Intent intent = new Intent(this, CalendarActivity.class);
-        startActivityWithAnimation(intent, FROM_LEFT_TO_RIGHT);
     }
 
     @Override

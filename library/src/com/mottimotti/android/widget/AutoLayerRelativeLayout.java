@@ -18,6 +18,7 @@ public class AutoLayerRelativeLayout extends RelativeLayout {
         super(context, attrs, defStyle);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void setBackgroundDrawable(Drawable d) {
         if (d == null) return;
@@ -25,6 +26,7 @@ public class AutoLayerRelativeLayout extends RelativeLayout {
         super.setBackgroundDrawable(layer);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void setBackground(Drawable d) {
         if (d == null) return;
