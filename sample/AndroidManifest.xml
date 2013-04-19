@@ -16,7 +16,7 @@
 
         <activity
             android:name=".sample.SampleListActivity"
-            android:label="@string/app_name">
+            android:label="Demos of MottiMotti Utils">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT"/>
@@ -26,7 +26,7 @@
 
         <activity
             android:name=".sample.CalendarActivity"
-            android:label="DEMO: Calendar table view">
+            android:label="Calendar table view">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.mottimotti.android.sample.EXAMPLE" />
@@ -35,7 +35,16 @@
         
         <activity
             android:name=".sample.SegmentedRadioGroupActivity"
-            android:label="DEMO: Segmented radio group">
+            android:label="Segmented radio group">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.mottimotti.android.sample.EXAMPLE" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".sample.SwipeDismissListActivity"
+            android:label="Expanded list with swipe dismiss effect">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.mottimotti.android.sample.EXAMPLE" />

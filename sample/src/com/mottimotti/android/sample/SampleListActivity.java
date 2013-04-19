@@ -7,13 +7,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import com.mottimotti.android.app.AnimationSherlockListActivity;
+import com.actionbarsherlock.app.SherlockListActivity;
 
 import java.text.Collator;
 import java.util.*;
 
 
-public class SampleListActivity extends AnimationSherlockListActivity {
+public class SampleListActivity extends SherlockListActivity {
     private static final String CATEGORY_NAME = "com.mottimotti.android.sample.EXAMPLE";
 
     @Override
@@ -125,6 +125,6 @@ public class SampleListActivity extends AnimationSherlockListActivity {
         Map<String, Object> map = (Map<String, Object>) l.getItemAtPosition(position);
 
         Intent intent = (Intent) map.get("intent");
-        startActivityWithAnimation(intent, FROM_LEFT_TO_RIGHT);
+        startActivity(intent);
     }
 }

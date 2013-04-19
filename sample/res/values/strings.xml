@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MottiMotti Demo</string>
+    <string name="app_name">MottiMotti Utils</string>
     <string name="previous_month"><![CDATA[<]]></string>
     <string name="next_month"><![CDATA[>]]></string>
+    <string name="expanded_swipe_dismiss_list_intro">The list view below is expanded(whole height of list view
+        calculated on the basis of its children).\n You can swipe its items and dismiss them
+    </string>
 </resources>
