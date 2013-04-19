@@ -102,6 +102,8 @@ class CalendarCell extends SAutoLayerTextView implements View.OnClickListener {
         headerStateTextAppearance = a.getResourceId(R.styleable.CalendarCell_headerStateTextAppearance, android.R.style.TextAppearance_Medium);
         headerStateTypeface = a.getString(R.styleable.CalendarCell_headerStateTypeface);
         headerStateTextShadow = a.getResourceId(R.styleable.CalendarCell_headerStateTextShadow, 0);
+
+        a.recycle();
     }
 
     private void setListeners() {
@@ -112,7 +114,6 @@ class CalendarCell extends SAutoLayerTextView implements View.OnClickListener {
         CalendarCell textView = new CalendarCell(context, attrs);
         textView.setGravity(Gravity.CENTER);
         textView.setClickable(true);
-        textView.setState(DayState.REGULAR);
         return textView;
     }
 
@@ -188,13 +189,25 @@ class CalendarCell extends SAutoLayerTextView implements View.OnClickListener {
     }
 
     private void setTextShadowAppearance(Context context, int resid) {
-        if(resid == 0) return;
-        TypedArray appearance = context.obtainStyledAttributes(resid, R.styleable.CalendarCellTextShadow);
-        int color = appearance.getColor(R.styleable.CalendarCellTextShadow_shadowColor, 0);
-        float radius = appearance.getFloat(R.styleable.CalendarCellTextShadow_shadowRadius, 0);
-        int shadowDx = appearance.getInt(R.styleable.CalendarCellTextShadow_shadowDx, 0);
-        int shadowDy = appearance.getInt(R.styleable.CalendarCellTextShadow_shadowDy, 0);
-        setShadowLayer(radius, shadowDx, shadowDy, color);
+        if(resid == 0) {
+            setShadowLayer(0, 0, 0, 0);
+        }else {
+            int[] attrsArray = new int[] {
+                    android.R.attr.shadowColor,
+                    android.R.attr.shadowDx,
+                    android.R.attr.shadowDy,
+                    android.R.attr.shadowRadius
+            };
+
+            TypedArray appearance = context.obtainStyledAttributes(resid, attrsArray);
+            int color = appearance.getColor(0, 0);
+            float shadowDx = appearance.getFloat(1, 0);
+            float shadowDy = appearance.getFloat(2, 0);
+            float radius = appearance.getFloat(3, 0);
+            appearance.recycle();
+
+            setShadowLayer(radius, shadowDx, shadowDy, color);
+        }
     }
 
     private void loadTypeface(String typefaceReference) {

@@ -48,10 +48,4 @@
         <attr name="headerStateTextShadow" format="integer"/>
     </declare-styleable>
 
-    <declare-styleable name="CalendarCellTextShadow">
-        <attr name="shadowColor" format="color"/>
-        <attr name="shadowRadius" format="float"/>
-        <attr name="shadowDx" format="integer"/>
-        <attr name="shadowDy" format="integer"/>
-    </declare-styleable>
 </resources>
