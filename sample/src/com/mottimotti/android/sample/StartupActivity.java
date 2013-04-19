@@ -1,15 +1,14 @@
 package com.mottimotti.android.sample;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
-import android.widget.RadioGroup;
 import com.mottimotti.android.R;
+import com.mottimotti.android.app.AnimationSherlockActivity;
 import com.mottimotti.android.widget.RadioGroupSegmented;
 
-public class StartupActivity extends Activity {
+public class StartupActivity extends AnimationSherlockActivity {
     private RadioGroupSegmented radioGroupSegmented;
 
     @Override
@@ -21,7 +20,7 @@ public class StartupActivity extends Activity {
 
     public void openCalendarPage(View view) {
         Intent intent = new Intent(this, CalendarActivity.class);
-        startActivity(intent);
+        startActivityWithAnimation(intent, FROM_LEFT_TO_RIGHT);
     }
 
     @Override
