@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -25,4 +25,25 @@
             android:text="Third button" />
     </com.mottimotti.android.widget.RadioGroupSegmented>
 
-</RelativeLayout>
+    <com.mottimotti.android.widget.RadioGroupSegmented
+        style="@style/RadioGroupSegmented"
+        android:id="@+id/image_radio_group_segmented">
+
+        <com.mottimotti.android.widget.RadioButtonCenteredImage
+            style="@style/RadioButton"
+            android:button="@android:drawable/ic_menu_camera"
+            android:id="@+id/camera_button"/>
+
+        <com.mottimotti.android.widget.RadioButtonCenteredImage
+            style="@style/RadioButton"
+            android:button="@android:drawable/ic_menu_compass"
+            android:id="@+id/compass_button"
+            />
+
+        <com.mottimotti.android.widget.RadioButtonCenteredImage
+            style="@style/RadioButton"
+            android:id="@+id/call_button"
+            android:button="@android:drawable/ic_menu_call"/>
+    </com.mottimotti.android.widget.RadioGroupSegmented>
+
+</LinearLayout>
