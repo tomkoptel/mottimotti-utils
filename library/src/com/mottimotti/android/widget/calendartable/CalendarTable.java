@@ -2,23 +2,56 @@ package com.mottimotti.android.widget.calendartable;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Typeface;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.MonthDisplayHelper;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import com.mottimotti.android.R;
+import com.mottimotti.android.widget.SAutoLayerTextView;
+
 import java.text.DateFormatSymbols;
 import java.util.*;
 
 
-public class CalendarTable extends TableLayout implements CalendarCell.CellClickListener {
+public class CalendarTable extends TableLayout {
     private static final int ROW_NUMBER = 6;
 
+    private int blockedStateDrawable;
+    private int blockedStateTextAppearance;
+    private String blockedStateTypeface;
+    private int blockedStateTextShadow;
+
+    private int regularStateDrawable;
+    private int regularStateTextAppearance;
+    private String regularStateTypeface;
+    private int regularStateTextShadow;
+
+    private int inactiveStateDrawable;
+    private int inactiveStateTextAppearance;
+    private String inactiveStateTypeface;
+    private int inactiveStateTextShadow;
+
+    private int activeStateDrawable;
+    private int activeStateTextAppearance;
+    private String activeStateTypeface;
+    private int activeStateTextShadow;
+
+    private int currentStateDrawable;
+    private int currentStateTextAppearance;
+    private String currentStateTypeface;
+    private int currentStateTextShadow;
+
+    private int headerStateDrawable;
+    private int headerStateTextAppearance;
+    private String headerStateTypeface;
+    private int headerStateTextShadow;
+
     private MonthDisplayHelper monthDisplayHelper;
-    private AttributeSet attrs;
     private boolean blockFutureDays;
     private int weekStartDay;
     private List<Date> activeDates = new ArrayList<Date>();
@@ -29,30 +62,64 @@ public class CalendarTable extends TableLayout implements CalendarCell.CellClick
 
     public CalendarTable(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.attrs = attrs;
-
-        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.CalendarTable);
-        blockFutureDays = array.getBoolean(R.styleable.CalendarTable_blockFutureDays, false);
-        weekStartDay = array.getInt(R.styleable.CalendarTable_weekStartDay, Calendar.SUNDAY);
-
-        init();
+        init(context, attrs);
+        setUp();
     }
 
-    private void init() {
-        initMonthDisplayHelper();
-        initCalendarRows();
-        initCalendarCells();
+    private void init(Context context, AttributeSet attrs) {
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CalendarTable);
+
+        blockFutureDays = a.getBoolean(R.styleable.CalendarTable_blockFutureDays, false);
+        weekStartDay = a.getInt(R.styleable.CalendarTable_weekStartDay, Calendar.SUNDAY);
+
+        blockedStateDrawable = a.getResourceId(R.styleable.CalendarTable_blockedStateDrawable, android.R.color.transparent);
+        blockedStateTextAppearance = a.getResourceId(R.styleable.CalendarTable_blockedStateTextAppearance, android.R.style.TextAppearance_Medium);
+        blockedStateTypeface = a.getString(R.styleable.CalendarTable_blockedStateTypeface);
+        blockedStateTextShadow = a.getResourceId(R.styleable.CalendarTable_blockedStateTextShadow, 0);
+
+        regularStateDrawable = a.getResourceId(R.styleable.CalendarTable_regularStateDrawable, android.R.color.transparent);
+        regularStateTextAppearance = a.getResourceId(R.styleable.CalendarTable_regularStateTextAppearance, android.R.style.TextAppearance_Medium);
+        regularStateTypeface = a.getString(R.styleable.CalendarTable_regularStateTypeface);
+        regularStateTextShadow = a.getResourceId(R.styleable.CalendarTable_regularStateTextShadow, 0);
+
+        inactiveStateDrawable = a.getResourceId(R.styleable.CalendarTable_inactiveStateDrawable, android.R.color.transparent);
+        inactiveStateTextAppearance = a.getResourceId(R.styleable.CalendarTable_inactiveStateTextAppearance, android.R.style.TextAppearance_Medium);
+        inactiveStateTypeface = a.getString(R.styleable.CalendarTable_inactiveStateTypeface);
+        inactiveStateTextShadow = a.getResourceId(R.styleable.CalendarTable_inactiveStateTextShadow, 0);
+
+        activeStateDrawable = a.getResourceId(R.styleable.CalendarTable_activeStateDrawable, android.R.color.transparent);
+        activeStateTextAppearance = a.getResourceId(R.styleable.CalendarTable_activeStateTextAppearance, android.R.style.TextAppearance_Medium);
+        activeStateTypeface = a.getString(R.styleable.CalendarTable_activeStateTypeface);
+        activeStateTextShadow = a.getResourceId(R.styleable.CalendarTable_activeStateTextShadow, 0);
+
+        currentStateDrawable = a.getResourceId(R.styleable.CalendarTable_currentStateDrawable, android.R.color.transparent);
+        currentStateTextAppearance = a.getResourceId(R.styleable.CalendarTable_currentStateTextAppearance, android.R.style.TextAppearance_Medium);
+        currentStateTypeface = a.getString(R.styleable.CalendarTable_currentStateTypeface);
+        currentStateTextShadow = a.getResourceId(R.styleable.CalendarTable_activeStateTextShadow, 0);
+
+        headerStateDrawable = a.getResourceId(R.styleable.CalendarTable_headerStateDrawable, android.R.color.transparent);
+        headerStateTextAppearance = a.getResourceId(R.styleable.CalendarTable_headerStateTextAppearance, android.R.style.TextAppearance_Medium);
+        headerStateTypeface = a.getString(R.styleable.CalendarTable_headerStateTypeface);
+        headerStateTextShadow = a.getResourceId(R.styleable.CalendarTable_headerStateTextShadow, 0);
+
+        a.recycle();
+    }
+
+    private void setUp() {
+        setUpMonthDisplayHelper();
+        setUpCalendarRows();
+        setUpCalendarCells();
         showLastRowIfNeed();
     }
 
-    private void initMonthDisplayHelper() {
+    private void setUpMonthDisplayHelper() {
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         monthDisplayHelper = new MonthDisplayHelper(year, month, weekStartDay);
     }
 
-    private void initCalendarRows() {
+    private void setUpCalendarRows() {
         int wrap_content = TableRow.LayoutParams.WRAP_CONTENT;
         int match_parent = TableRow.LayoutParams.MATCH_PARENT;
         TableRow.LayoutParams params = new TableRow.LayoutParams(match_parent, wrap_content);
@@ -64,7 +131,7 @@ public class CalendarTable extends TableLayout implements CalendarCell.CellClick
         }
     }
 
-    private void initCalendarCells() {
+    private void setUpCalendarCells() {
         initCalendarHeader();
         initCalendarBody();
     }
@@ -83,8 +150,7 @@ public class CalendarTable extends TableLayout implements CalendarCell.CellClick
 
         for (String dayName : days) {
             if(dayName.equals("")) continue;
-            CalendarCell cell = new CalendarCell(getContext(), attrs);
-            cell.setGravity(Gravity.CENTER);
+            CalendarCell cell = new CalendarCell(getContext());
             cell.setState(DayState.HEADER);
             cell.setText(String.format("%s.", dayName));
             row.addView(cell);
@@ -103,8 +169,7 @@ public class CalendarTable extends TableLayout implements CalendarCell.CellClick
         CalendarCell calendarDay;
         List<CalendarDay> days = week.getDays();
         for (CalendarDay day : days) {
-            calendarDay = CalendarCell.instantiate(getContext(), attrs);
-            calendarDay.setCellClickListener(this);
+            calendarDay = new CalendarCell(getContext());
             calendarDay.setDay(day);
             row.addView(calendarDay);
         }
@@ -113,11 +178,6 @@ public class CalendarTable extends TableLayout implements CalendarCell.CellClick
     private void showLastRowIfNeed() {
         boolean withinCurrentMonth = monthDisplayHelper.isWithinCurrentMonth(ROW_NUMBER - 1, 0);
         getChildAt(ROW_NUMBER).setVisibility(withinCurrentMonth ? VISIBLE : GONE);
-    }
-
-    @Override
-    public void onClick(Calendar selectedCalendar) {
-        dispatchCellClickListener(selectedCalendar);
     }
 
     public void previousMonth() {
@@ -290,6 +350,149 @@ public class CalendarTable extends TableLayout implements CalendarCell.CellClick
     private void dispatchCellClickListener(Calendar calendar) {
         if (clickListener != null) {
             clickListener.onClick(calendar);
+        }
+    }
+
+    private class CalendarCell extends SAutoLayerTextView implements View.OnClickListener {
+        private CalendarDay day;
+        private CalendarDay previousDay;
+
+        public CalendarCell(Context context) {
+            super(context);
+            init();
+        }
+
+        public CalendarCell(Context context, AttributeSet attrs) {
+            super(context, attrs);
+            init();
+        }
+
+        public CalendarCell(Context context, AttributeSet attrs, int defStyle) {
+            super(context, attrs, defStyle);
+            init();
+        }
+
+        public void init() {
+            setGravity(Gravity.CENTER);
+            setClickable(true);
+        }
+
+        public void setState(DayState state) {
+            switch (state) {
+                case HEADER:
+                    applyHeaderState();
+                    break;
+                case BLOCKED:
+                    applyBlockedState();
+                    break;
+                case REGULAR:
+                    applyRegularSettings();
+                    break;
+                case INACTIVE:
+                    applyInActiveSettings();
+                    break;
+                case ACTIVE:
+                    applyActiveSettings();
+                    break;
+                case CURRENT:
+                    applyCurrentState();
+                    break;
+            }
+        }
+
+        private void applyHeaderState() {
+            setTextAppearance(getContext(), headerStateTextAppearance);
+            setTextShadowAppearance(getContext(), headerStateTextShadow);
+            setBackgroundResource(headerStateDrawable);
+            loadTypeface(headerStateTypeface);
+            setClickable(false);
+        }
+
+        private void applyRegularSettings() {
+            setTextAppearance(getContext(), regularStateTextAppearance);
+            setTextShadowAppearance(getContext(), regularStateTextShadow);
+            setBackgroundResource(regularStateDrawable);
+            loadTypeface(regularStateTypeface);
+            setClickable(true);
+        }
+
+        private void applyBlockedState() {
+            setTextAppearance(getContext(), blockedStateTextAppearance);
+            setTextShadowAppearance(getContext(), blockedStateTextShadow);
+            setBackgroundResource(blockedStateDrawable);
+            loadTypeface(blockedStateTypeface);
+            setClickable(false);
+        }
+
+        private void applyInActiveSettings() {
+            setTextAppearance(getContext(), inactiveStateTextAppearance);
+            setTextShadowAppearance(getContext(), inactiveStateTextShadow);
+            setBackgroundResource(inactiveStateDrawable);
+            loadTypeface(inactiveStateTypeface);
+            setClickable(true);
+        }
+
+        private void applyActiveSettings() {
+            setTextAppearance(getContext(), activeStateTextAppearance);
+            setTextShadowAppearance(getContext(), activeStateTextShadow);
+            setBackgroundResource(activeStateDrawable);
+            loadTypeface(activeStateTypeface);
+            setClickable(true);
+        }
+
+        private void applyCurrentState() {
+            setTextAppearance(getContext(), currentStateTextAppearance);
+            setTextShadowAppearance(getContext(), currentStateTextShadow);
+            setBackgroundResource(currentStateDrawable);
+            loadTypeface(currentStateTypeface);
+            setClickable(true);
+        }
+
+        private void setTextShadowAppearance(Context context, int resid) {
+            if(resid == 0) {
+                setShadowLayer(0, 0, 0, 0);
+            }else {
+                int[] attrsArray = new int[] {
+                        android.R.attr.shadowColor,
+                        android.R.attr.shadowDx,
+                        android.R.attr.shadowDy,
+                        android.R.attr.shadowRadius
+                };
+
+                TypedArray appearance = context.obtainStyledAttributes(resid, attrsArray);
+                int color = appearance.getColor(0, 0);
+                float shadowDx = appearance.getFloat(1, 0);
+                float shadowDy = appearance.getFloat(2, 0);
+                float radius = appearance.getFloat(3, 0);
+                appearance.recycle();
+
+                setShadowLayer(radius, shadowDx, shadowDy, color);
+            }
+        }
+
+        private void loadTypeface(String typefaceReference) {
+            if (typefaceReference == null) return;
+            Typeface type = Typeface.createFromAsset(getContext().getAssets(), typefaceReference);
+            setTypeface(type);
+        }
+
+        public void setDay(CalendarDay day) {
+            if (previousDay == null) {
+                this.previousDay = day;
+                setState(day.getState());
+            } else {
+                this.previousDay = this.day;
+                if (previousDay.getState() != day.getState()) {
+                    setState(day.getState());
+                }
+            }
+            this.day = day;
+            setText(day.toString());
+        }
+
+        @Override
+        public void onClick(View v) {
+            dispatchCellClickListener(day.getCalendar());
         }
     }
 }

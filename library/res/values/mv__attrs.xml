@@ -2,6 +2,7 @@
 <resources>
     <declare-styleable name="CalendarTable">
         <attr name="blockFutureDays" format="boolean"/>
+
         <attr name="weekStartDay">
             <enum name="sunday" value="1" />
             <enum name="monday" value="2" />
@@ -11,9 +12,7 @@
             <enum name="friday" value="6" />
             <enum name="saturday" value="7" />
         </attr>
-    </declare-styleable>
 
-    <declare-styleable name="CalendarCell">
         <attr name="blockedStateDrawable" format="integer"/>
         <!--Sets the text color, size, style, hint color, and highlight color from the specified TextAppearance resource.-->
         <attr name="blockedStateTextAppearance" format="integer"/>
