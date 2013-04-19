@@ -25,13 +25,13 @@ public class AnimationActivity extends Activity {
         animationFlag = animationType;
         switch (animationType) {
             case FROM_LEFT_TO_RIGHT:
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                break;
-            case FROM_RIGHT_TO_LEFT:
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 break;
+            case FROM_RIGHT_TO_LEFT:
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                break;
             case FROM_TOP_TO_BOTTOM:
-                overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+                overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_bottom);
                 break;
             case FROM_BOTTOM_TO_TOP:
                 overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
@@ -49,16 +49,16 @@ public class AnimationActivity extends Activity {
         animationFlag = animationType;
         switch (animationType) {
             case FROM_LEFT_TO_RIGHT:
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-                break;
-            case FROM_RIGHT_TO_LEFT:
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
+            case FROM_RIGHT_TO_LEFT:
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                break;
             case FROM_TOP_TO_BOTTOM:
-                overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_bottom);
+                overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
                 break;
             case FROM_BOTTOM_TO_TOP:
-                overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+                overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_bottom);
                 break;
         }
     }
