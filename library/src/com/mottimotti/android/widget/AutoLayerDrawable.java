@@ -6,7 +6,7 @@ import android.graphics.LightingColorFilter;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 
-public class SAutoLayerDrawable extends LayerDrawable {
+public class AutoLayerDrawable extends LayerDrawable {
 
     // The color filter to apply when the button is pressed
     protected ColorFilter _pressedFilter = new LightingColorFilter(Color.LTGRAY, 1);
@@ -15,7 +15,7 @@ public class SAutoLayerDrawable extends LayerDrawable {
     // Alpha value when the button is enabled
     protected int _fullAlpha = 255;
 
-    public SAutoLayerDrawable(Drawable d) {
+    public AutoLayerDrawable(Drawable d) {
         super(new Drawable[]{d});
     }
 

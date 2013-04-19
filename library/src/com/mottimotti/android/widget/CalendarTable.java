@@ -357,7 +357,7 @@ public class CalendarTable extends TableLayout {
         }
     }
 
-    private class CalendarCell extends SAutoLayerTextView implements View.OnClickListener {
+    private class CalendarCell extends AutoLayerTextView implements View.OnClickListener {
         private CalendarDay day;
         private CalendarDay previousDay;
 
