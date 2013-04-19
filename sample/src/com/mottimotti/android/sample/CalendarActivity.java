@@ -7,14 +7,13 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.mottimotti.android.R;
-import com.mottimotti.android.widget.calendartable.CalendarTable;
+import com.mottimotti.android.widget.CalendarTable;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 
 public class CalendarActivity extends Activity
         implements CalendarTable.OnMonthSelectedListener, CalendarTable.CellClickListener {

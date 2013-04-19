@@ -1,4 +1,4 @@
-package com.mottimotti.android.widget.calendartable;
+package com.mottimotti.android.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import com.mottimotti.android.R;
-import com.mottimotti.android.widget.SAutoLayerTextView;
 
 import java.text.DateFormatSymbols;
 import java.util.*;

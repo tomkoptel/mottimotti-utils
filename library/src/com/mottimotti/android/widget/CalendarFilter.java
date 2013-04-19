@@ -1,4 +1,4 @@
-package com.mottimotti.android.widget.calendartable;
+package com.mottimotti.android.widget;
 
 import android.util.MonthDisplayHelper;
 
