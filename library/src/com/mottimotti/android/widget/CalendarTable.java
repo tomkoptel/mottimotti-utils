@@ -53,6 +53,7 @@ public class CalendarTable extends TableLayout {
     private MonthDisplayHelper monthDisplayHelper;
     private boolean blockFutureDays;
     private int weekStartDay;
+    private boolean isEdit = false;
     private List<Date> activeDates = new ArrayList<Date>();
 
     public CalendarTable(Context context) {
@@ -148,7 +149,7 @@ public class CalendarTable extends TableLayout {
         days.addAll(Arrays.asList(before));
 
         for (String dayName : days) {
-            if(dayName.equals("")) continue;
+            if (dayName.equals("")) continue;
             CalendarCell cell = new CalendarCell(getContext());
             cell.setState(DayState.HEADER);
             cell.setText(String.format("%s.", dayName));
@@ -323,16 +324,20 @@ public class CalendarTable extends TableLayout {
     }
 
     private void dispatchPreviousMonthSelected() {
-        if (monthSelectedListener != null) {
+        if (monthSelectedListener != null && !isEdit) {
+            isEdit = true;
             Calendar[] calendars = getCurrentCalendars();
             monthSelectedListener.onPreviousMonthSelected(calendars[0], calendars[1]);
+            isEdit = false;
         }
     }
 
     private void dispatchNextMonthSelected() {
-        if (monthSelectedListener != null) {
+        if (monthSelectedListener != null && !isEdit) {
+            isEdit = true;
             Calendar[] calendars = getCurrentCalendars();
             monthSelectedListener.onNextMonthSelected(calendars[0], calendars[1]);
+            isEdit = false;
         }
     }
 
@@ -374,6 +379,7 @@ public class CalendarTable extends TableLayout {
         public void init() {
             setGravity(Gravity.CENTER);
             setClickable(true);
+            setOnClickListener(this);
         }
 
         public void setState(DayState state) {
@@ -448,10 +454,10 @@ public class CalendarTable extends TableLayout {
         }
 
         private void setTextShadowAppearance(Context context, int resid) {
-            if(resid == 0) {
+            if (resid == 0) {
                 setShadowLayer(0, 0, 0, 0);
-            }else {
-                int[] attrsArray = new int[] {
+            } else {
+                int[] attrsArray = new int[]{
                         android.R.attr.shadowColor,
                         android.R.attr.shadowDx,
                         android.R.attr.shadowDy,
