@@ -65,8 +65,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <gpg.keyname>B5FA5EE4</gpg.keyname>
-        <gpg.passphrase>tommts</gpg.passphrase>
+        <gpg.keyname>${env.GPGKEY}</gpg.keyname>
+        <gpg.passphrase>mtstom</gpg.passphrase>
         <java.version>1.6</java.version>
         <android.version>4.1.1.4</android.version>
         <android.platform>16</android.platform>
