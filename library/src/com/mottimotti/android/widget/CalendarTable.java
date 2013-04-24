@@ -247,6 +247,18 @@ public class CalendarTable extends TableLayout {
         return activeDates;
     }
 
+    public int getYear() {
+        return getHelperCalendar().get(Calendar.YEAR);
+    }
+
+    public int getMonth() {
+        return getHelperCalendar().get(Calendar.MONTH);
+    }
+
+    public int getDay() {
+        return getHelperCalendar().get(Calendar.DAY_OF_MONTH);
+    }
+
     @Override
     public void onRestoreInstanceState(Parcelable state) {
         if (!(state instanceof SavedState)) {
