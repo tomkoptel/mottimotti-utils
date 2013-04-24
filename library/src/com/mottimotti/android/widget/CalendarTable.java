@@ -259,6 +259,114 @@ public class CalendarTable extends TableLayout {
         return getHelperCalendar().get(Calendar.DAY_OF_MONTH);
     }
 
+    public void setBlockedStateDrawable(int blockedStateDrawable) {
+        this.blockedStateDrawable = blockedStateDrawable;
+    }
+
+    public void setBlockedStateTextAppearance(int blockedStateTextAppearance) {
+        this.blockedStateTextAppearance = blockedStateTextAppearance;
+    }
+
+    public void setBlockedStateTypeface(String blockedStateTypeface) {
+        this.blockedStateTypeface = blockedStateTypeface;
+    }
+
+    public void setBlockedStateTextShadow(int blockedStateTextShadow) {
+        this.blockedStateTextShadow = blockedStateTextShadow;
+    }
+
+    public void setRegularStateDrawable(int regularStateDrawable) {
+        this.regularStateDrawable = regularStateDrawable;
+    }
+
+    public void setRegularStateTextAppearance(int regularStateTextAppearance) {
+        this.regularStateTextAppearance = regularStateTextAppearance;
+    }
+
+    public void setRegularStateTypeface(String regularStateTypeface) {
+        this.regularStateTypeface = regularStateTypeface;
+    }
+
+    public void setRegularStateTextShadow(int regularStateTextShadow) {
+        this.regularStateTextShadow = regularStateTextShadow;
+    }
+
+    public void setInactiveStateDrawable(int inactiveStateDrawable) {
+        this.inactiveStateDrawable = inactiveStateDrawable;
+    }
+
+    public void setInactiveStateTextAppearance(int inactiveStateTextAppearance) {
+        this.inactiveStateTextAppearance = inactiveStateTextAppearance;
+    }
+
+    public void setInactiveStateTypeface(String inactiveStateTypeface) {
+        this.inactiveStateTypeface = inactiveStateTypeface;
+    }
+
+    public void setInactiveStateTextShadow(int inactiveStateTextShadow) {
+        this.inactiveStateTextShadow = inactiveStateTextShadow;
+    }
+
+    public void setActiveStateDrawable(int activeStateDrawable) {
+        this.activeStateDrawable = activeStateDrawable;
+    }
+
+    public void setActiveStateTextAppearance(int activeStateTextAppearance) {
+        this.activeStateTextAppearance = activeStateTextAppearance;
+    }
+
+    public void setActiveStateTypeface(String activeStateTypeface) {
+        this.activeStateTypeface = activeStateTypeface;
+    }
+
+    public void setActiveStateTextShadow(int activeStateTextShadow) {
+        this.activeStateTextShadow = activeStateTextShadow;
+    }
+
+    public void setCurrentStateDrawable(int currentStateDrawable) {
+        this.currentStateDrawable = currentStateDrawable;
+    }
+
+    public void setCurrentStateTextAppearance(int currentStateTextAppearance) {
+        this.currentStateTextAppearance = currentStateTextAppearance;
+    }
+
+    public void setCurrentStateTypeface(String currentStateTypeface) {
+        this.currentStateTypeface = currentStateTypeface;
+    }
+
+    public void setCurrentStateTextShadow(int currentStateTextShadow) {
+        this.currentStateTextShadow = currentStateTextShadow;
+    }
+
+    public void setHeaderStateDrawable(int headerStateDrawable) {
+        this.headerStateDrawable = headerStateDrawable;
+    }
+
+    public void setHeaderStateTextAppearance(int headerStateTextAppearance) {
+        this.headerStateTextAppearance = headerStateTextAppearance;
+    }
+
+    public void setHeaderStateTypeface(String headerStateTypeface) {
+        this.headerStateTypeface = headerStateTypeface;
+    }
+
+    public void setHeaderStateTextShadow(int headerStateTextShadow) {
+        this.headerStateTextShadow = headerStateTextShadow;
+    }
+
+    public void setMonthDisplayHelper(MonthDisplayHelper monthDisplayHelper) {
+        this.monthDisplayHelper = monthDisplayHelper;
+    }
+
+    public void setBlockFutureDays(boolean blockFutureDays) {
+        this.blockFutureDays = blockFutureDays;
+    }
+
+    public void setWeekStartDay(int weekStartDay) {
+        this.weekStartDay = weekStartDay;
+    }
+
     @Override
     public void onRestoreInstanceState(Parcelable state) {
         if (!(state instanceof SavedState)) {
