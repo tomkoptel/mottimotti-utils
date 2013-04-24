@@ -39,4 +39,27 @@ public class AutoLayerTextView extends TextView {
             super.setBackground(layer);
         }
     }
+
+    @Override
+    public void setCompoundDrawablesWithIntrinsicBounds(Drawable leftOriginal, Drawable topOriginal,
+                                                        Drawable rightOriginal, Drawable bottomOriginal) {
+        Drawable left = leftOriginal;
+        Drawable top = topOriginal;
+        Drawable right = rightOriginal;
+        Drawable bottom = bottomOriginal;
+
+        if (leftOriginal != null) {
+            left = new AutoLayerDrawable(leftOriginal);
+        }
+        if (rightOriginal != null) {
+            right = new AutoLayerDrawable(rightOriginal);
+        }
+        if (topOriginal != null) {
+            top = new AutoLayerDrawable(topOriginal);
+        }
+        if (bottomOriginal != null) {
+            bottom = new AutoLayerDrawable(bottomOriginal);
+        }
+        super.setCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom);
+    }
 }
