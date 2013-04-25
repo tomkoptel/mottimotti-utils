@@ -361,10 +361,7 @@ public class CalendarTable extends TableLayout {
 
     public void setBlockFutureDays(boolean blockFutureDays) {
         this.blockFutureDays = blockFutureDays;
-    }
-
-    public void setWeekStartDay(int weekStartDay) {
-        this.weekStartDay = weekStartDay;
+        updateCalendarTable();
     }
 
     @Override
