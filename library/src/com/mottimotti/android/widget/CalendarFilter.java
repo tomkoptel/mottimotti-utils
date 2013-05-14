@@ -8,11 +8,18 @@ public class CalendarFilter {
     private final MonthDisplayHelper helper;
     private final int startDay;
     private final int endDay;
+    private final int firstDayInLastWeek;
 
     public CalendarFilter(MonthDisplayHelper helper) {
         this.helper = helper;
         this.startDay = helper.getDayAt(0, 0);
-        this.endDay = helper.getDayAt(5, 6);
+        if(helper.isWithinCurrentMonth(5, 0)) {
+            this.firstDayInLastWeek = helper.getDayAt(5, 0);
+            this.endDay = helper.getDayAt(5, 6);
+        } else {
+            this.firstDayInLastWeek = helper.getDayAt(4, 0);
+            this.endDay = helper.getDayAt(4, 6);
+        }
     }
 
     public Calendar getStartCalendar() {
@@ -32,7 +39,6 @@ public class CalendarFilter {
     }
 
     public boolean nextMonthVisible() {
-        int firstDayInLastWeek = helper.getDayAt(5, 0);
         int daysInMonth = helper.getNumberOfDaysInMonth();
         return (firstDayInLastWeek + 6 != daysInMonth);
     }
