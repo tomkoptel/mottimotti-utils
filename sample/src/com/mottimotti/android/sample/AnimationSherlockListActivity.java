@@ -1,4 +1,4 @@
-package com.mottimotti.android.app;
+package com.mottimotti.android.sample;
 
 import android.content.Intent;
 import com.actionbarsherlock.app.SherlockListActivity;
