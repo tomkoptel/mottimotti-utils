@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <declare-styleable name="AutoLayerImageView">
+        <attr name="duff">
+            <enum name="xor" value="0" />
+            <enum name="add" value="1" />
+            <enum name="clear" value="2" />
+            <enum name="darken" value="3" />
+            <enum name="dst" value="4" />
+            <enum name="dst_atop" value="5" />
+            <enum name="dst_in" value="6" />
+            <enum name="dst_out" value="7" />
+            <enum name="dst_over" value="8" />
+            <enum name="lighten" value="9" />
+            <enum name="multiply" value="10" />
+            <enum name="overlay" value="11" />
+            <enum name="screen" value="12" />
+            <enum name="src" value="13" />
+            <enum name="src_atop" value="14" />
+            <enum name="src_in" value="15" />
+            <enum name="src_out" value="16" />
+            <enum name="src_over" value="17" />
+        </attr>
+        <attr name="color_mode" format="integer" />
+    </declare-styleable>
+</resources>

@@ -61,6 +61,15 @@
         </activity>
 
         <activity
+            android:name=".sample.PorterActivity"
+            android:label="Demo for PorterDuff modes">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.mottimotti.android.sample.EXAMPLE" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".sample.AutoLayerActivity"
             android:label="Demo for iOS like auto layer elements">
             <intent-filter>

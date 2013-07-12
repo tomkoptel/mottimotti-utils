@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.mottimotti.android.widget.AutoLayerImageView
+                android:layout_gravity="left"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:clickable="true"
+                custom:duff="xor"
+                custom:color_mode="@android:color/holo_blue_bright"
+                android:src="@drawable/atopia_icon" />
+
+            <TextView
+                android:layout_gravity="right|center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:text="XOR" />
+
+        </FrameLayout>
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <com.mottimotti.android.widget.AutoLayerImageView
+                android:layout_gravity="left"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:clickable="true"
+                custom:duff="add"
+                custom:color_mode="@android:color/holo_blue_bright"
+                android:src="@drawable/atopia_icon" />
+
+            <TextView
+                android:layout_gravity="right|center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:text="ADD" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.mottimotti.android.widget.AutoLayerImageView
+                android:layout_gravity="left"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:clickable="true"
+                custom:duff="clear"
+                custom:color_mode="@android:color/holo_blue_bright"
+                android:src="@drawable/atopia_icon" />
+
+            <TextView
+                android:layout_gravity="right|center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:text="CLEAR" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.mottimotti.android.widget.AutoLayerImageView
+                android:layout_gravity="left"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:clickable="true"
+                custom:duff="darken"
+                custom:color_mode="@android:color/holo_blue_bright"
+                android:src="@drawable/atopia_icon" />
+
+            <TextView
+                android:layout_gravity="right|center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:text="DARKEN" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.mottimotti.android.widget.AutoLayerImageView
+                android:layout_gravity="left"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:clickable="true"
+                custom:duff="dst"
+                custom:color_mode="@android:color/holo_blue_bright"
+                android:src="@drawable/atopia_icon" />
+
+            <TextView
+                android:layout_gravity="right|center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:text="DST" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.mottimotti.android.widget.AutoLayerImageView
+                android:layout_gravity="left"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:clickable="true"
+                custom:duff="dst_atop"
+                custom:color_mode="@android:color/holo_blue_bright"
+                android:src="@drawable/atopia_icon" />
+
+            <TextView
+                android:layout_gravity="right|center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:text="DST_ATOP" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.mottimotti.android.widget.AutoLayerImageView
+                android:layout_gravity="left"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:clickable="true"
+                custom:duff="dst_in"
+                custom:color_mode="@android:color/holo_blue_bright"
+                android:src="@drawable/atopia_icon" />
+
+            <TextView
+                android:layout_gravity="right|center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:text="DST_IN" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.mottimotti.android.widget.AutoLayerImageView
+                android:layout_gravity="left"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:clickable="true"
+                custom:duff="dst_out"
+                custom:color_mode="@android:color/holo_blue_bright"
+                android:src="@drawable/atopia_icon" />
+
+            <TextView
+                android:layout_gravity="right|center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:text="DST_OUT" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.mottimotti.android.widget.AutoLayerImageView
+                android:layout_gravity="left"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:clickable="true"
+                custom:duff="dst_over"
+                custom:color_mode="@android:color/holo_blue_bright"
+                android:src="@drawable/atopia_icon" />
+
+            <TextView
+                android:layout_gravity="right|center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:text="DST_OVER" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.mottimotti.android.widget.AutoLayerImageView
+                android:layout_gravity="left"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:clickable="true"
+                custom:duff="lighten"
+                custom:color_mode="@android:color/holo_blue_bright"
+                android:src="@drawable/atopia_icon" />
+
+            <TextView
+                android:layout_gravity="right|center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:text="LIGHTEN" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.mottimotti.android.widget.AutoLayerImageView
+                android:layout_gravity="left"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:clickable="true"
+                custom:duff="multiply"
+                custom:color_mode="@android:color/holo_blue_bright"
+                android:src="@drawable/atopia_icon" />
+
+            <TextView
+                android:layout_gravity="right|center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:text="MULTIPLY" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.mottimotti.android.widget.AutoLayerImageView
+                android:layout_gravity="left"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:clickable="true"
+                custom:duff="overlay"
+                custom:color_mode="@android:color/holo_blue_bright"
+                android:src="@drawable/atopia_icon" />
+
+            <TextView
+                android:layout_gravity="right|center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:text="OVERLAY" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.mottimotti.android.widget.AutoLayerImageView
+                android:layout_gravity="left"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:clickable="true"
+                custom:duff="screen"
+                custom:color_mode="@android:color/holo_blue_bright"
+                android:src="@drawable/atopia_icon" />
+
+            <TextView
+                android:layout_gravity="right|center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:text="SCREEN" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.mottimotti.android.widget.AutoLayerImageView
+                android:layout_gravity="left"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:clickable="true"
+                custom:duff="src"
+                custom:color_mode="@android:color/holo_blue_bright"
+                android:src="@drawable/atopia_icon" />
+
+            <TextView
+                android:layout_gravity="right|center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:text="SRC" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.mottimotti.android.widget.AutoLayerImageView
+                android:layout_gravity="left"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:clickable="true"
+                custom:duff="src_atop"
+                custom:color_mode="@android:color/holo_blue_bright"
+                android:src="@drawable/atopia_icon" />
+
+            <TextView
+                android:textColor="@android:color/holo_blue_bright"
+                android:layout_gravity="right|center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:text="SRC_ATOP" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.mottimotti.android.widget.AutoLayerImageView
+                android:layout_gravity="left"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:clickable="true"
+                custom:duff="src_in"
+                custom:color_mode="@android:color/holo_blue_bright"
+                android:src="@drawable/atopia_icon" />
+
+            <TextView
+                android:layout_gravity="right|center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:text="SRC_IN" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.mottimotti.android.widget.AutoLayerImageView
+                android:layout_gravity="left"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:clickable="true"
+                custom:duff="src_out"
+                custom:color_mode="@android:color/holo_blue_bright"
+                android:src="@drawable/atopia_icon" />
+
+            <TextView
+                android:layout_gravity="right|center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:text="SRC_OUT" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.mottimotti.android.widget.AutoLayerImageView
+                android:layout_gravity="left"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:clickable="true"
+                custom:duff="src_over"
+                custom:color_mode="@android:color/holo_blue_bright"
+                android:src="@drawable/atopia_icon" />
+
+            <TextView
+                android:layout_gravity="right|center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+                android:text="SRC_OVER" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+</ScrollView>
