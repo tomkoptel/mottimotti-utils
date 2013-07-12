@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import com.mottimotti.android.app.AnimationSherlockListActivity;
 
 import java.util.ArrayList;
 import java.util.List;
