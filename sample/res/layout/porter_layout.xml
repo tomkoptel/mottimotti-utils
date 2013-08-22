@@ -37,29 +37,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
-            <com.mottimotti.android.widget.AutoLayerImageView
-                android:layout_gravity="left"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:clickable="true"
-                custom:duff="add"
-                custom:color_mode="@android:color/holo_blue_bright"
-                android:src="@drawable/atopia_icon" />
-
-            <TextView
-                android:layout_gravity="right|center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                android:text="ADD" />
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
             <com.mottimotti.android.widget.AutoLayerImageView
                 android:layout_gravity="left"
                 android:layout_width="150dp"
@@ -251,28 +228,6 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault"
                 android:text="MULTIPLY" />
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.mottimotti.android.widget.AutoLayerImageView
-                android:layout_gravity="left"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:clickable="true"
-                custom:duff="overlay"
-                custom:color_mode="@android:color/holo_blue_bright"
-                android:src="@drawable/atopia_icon" />
-
-            <TextView
-                android:layout_gravity="right|center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault"
-                android:text="OVERLAY" />
 
         </FrameLayout>
 

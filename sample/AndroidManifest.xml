@@ -88,6 +88,15 @@
         </activity>
 
         <activity
+            android:name=".sample.TypeFaceActivity"
+            android:label="Demo for TypeFace elements">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.mottimotti.android.sample.EXAMPLE" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".sample.SampleActivity"
             android:label="Sample page"/>
     </application>

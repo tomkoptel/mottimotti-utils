@@ -1,17 +1,18 @@
 package com.mottimotti.android.widget;
 
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import com.mottimotti.android.R;
 
-public class TypeFaceTextView extends AutoLayerTextView {
-    public TypeFaceTextView(Context context) {
+public class TypeFaceButton extends AutoLayerButton{
+    public TypeFaceButton(Context context) {
         super(context);
     }
 
-    public TypeFaceTextView(Context context, AttributeSet attrs) {
+    public TypeFaceButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
@@ -21,7 +22,7 @@ public class TypeFaceTextView extends AutoLayerTextView {
         loadResources(array);
     }
 
-    public TypeFaceTextView(Context context, AttributeSet attrs, int defStyle) {
+    public TypeFaceButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context, attrs, defStyle);
     }

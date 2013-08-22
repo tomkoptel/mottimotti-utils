@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="TypeFaceTextView">
+    <declare-styleable name="TypeFaceView">
         <attr name="typeFaceReference" format="string" />
     </declare-styleable>
 </resources>

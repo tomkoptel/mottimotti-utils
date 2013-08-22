@@ -4,14 +4,15 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.widget.EditText;
 import com.mottimotti.android.R;
 
-public class TypeFaceTextView extends AutoLayerTextView {
-    public TypeFaceTextView(Context context) {
+public class TypeFaceEditText extends EditText {
+    public TypeFaceEditText(Context context) {
         super(context);
     }
 
-    public TypeFaceTextView(Context context, AttributeSet attrs) {
+    public TypeFaceEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
@@ -21,7 +22,7 @@ public class TypeFaceTextView extends AutoLayerTextView {
         loadResources(array);
     }
 
-    public TypeFaceTextView(Context context, AttributeSet attrs, int defStyle) {
+    public TypeFaceEditText(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context, attrs, defStyle);
     }
