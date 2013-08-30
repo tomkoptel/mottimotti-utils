@@ -8,7 +8,7 @@
     android:layout_height="match_parent">
 
     <com.mottimotti.android.widget.TypeFaceTextView
-        app:typeFaceReference="fonts/fs_dillon_bold_italic.ttf"
+        app:typeFace="fonts/fs_dillon_bold_italic.ttf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sample text in TypeFaceTextView"/>
@@ -19,7 +19,7 @@
         android:text="Sample text in TextView"/>
 
     <com.mottimotti.android.widget.TypeFaceButton
-        app:typeFaceReference="fonts/fs_dillon_bold_italic.ttf"
+        app:typeFace="fonts/fs_dillon_bold_italic.ttf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sample text in TypeFaceButton"/>
@@ -30,7 +30,7 @@
         android:text="Sample text in Button"/>
 
     <com.mottimotti.android.widget.TypeFaceEditText
-        app:typeFaceReference="fonts/fs_dillon_bold_italic.ttf"
+        app:typeFace="fonts/fs_dillon_bold_italic.ttf"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sample text in TypeFaceEditText"/>

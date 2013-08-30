@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import com.mottimotti.android.R;
+import com.mottimotti.android.utils.Typefaces;
 
 public class TypeFaceButton extends AutoLayerButton{
     public TypeFaceButton(Context context) {
@@ -33,13 +34,15 @@ public class TypeFaceButton extends AutoLayerButton{
     }
 
     private void loadResources(TypedArray array) {
-        String typefaceReference = array.getString(R.styleable.TypeFaceView_typeFaceReference);
+        String typefaceReference = array.getString(R.styleable.TypeFaceView_typeFace);
         loadTypeface(typefaceReference);
     }
 
     public void loadTypeface(String typefaceReference) {
         if (typefaceReference == null) return;
-        Typeface type = Typeface.createFromAsset(getContext().getAssets(), typefaceReference);
-        setTypeface(type);
+        Typeface type = Typefaces.get(getContext(), typefaceReference);
+        if (type != null) {
+            setTypeface(type);
+        }
     }
 }
