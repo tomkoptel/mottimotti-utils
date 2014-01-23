@@ -1,4 +1,6 @@
 apply plugin: 'android-library'
+apply plugin: 'maven'
+apply plugin: 'signing'
 
 android {
     compileSdkVersion 19
@@ -38,3 +40,57 @@ dependencies {
     compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
 }
 
+version = "1.0.9"
+group = "com.mottimotti.android"
+
+configurations {
+    archives {
+        extendsFrom configurations.default
+    }
+}
+
+signing {
+    required { has("release") && gradle.taskGraph.hasTask("uploadArchives") }
+    sign configurations.archives
+}
+
+uploadArchives {
+    configuration = configurations.archives
+    repositories.mavenDeployer {
+        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+        repository(url: sonatypeRepo) {
+            authentication(userName: sonatypeUsername,
+                    password: sonatypePassword)
+        }
+
+        pom.project {
+            name 'Android MottiMotti Utils'
+            packaging 'aar'
+            description 'Android packages for simplifying developing for MottiMotti.'
+            url 'https://github.com/tomkoptel/mottimotti-utils'
+
+            scm {
+                url 'scm:git@github.com:tomkoptel/mottimotti-utils.git'
+                connection 'scm:git@github.com:tomkoptel/mottimotti-utils.git'
+                developerConnection 'scm:git@github.com:tomkoptel/mottimotti-utils.git'
+            }
+
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+
+            developers {
+                developer {
+                    id 'tom.koptel'
+                    name 'Tom Koptel'
+                    email 'tom.koptel@gmail.com'
+                }
+            }
+        }
+    }
+}
