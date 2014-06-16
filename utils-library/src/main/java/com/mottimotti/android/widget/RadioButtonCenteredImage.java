@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.RadioButton;
+
 import com.mottimotti.android.R;
 
 public class RadioButtonCenteredImage extends RadioButton {

@@ -21,9 +21,13 @@ android {
     }
 }
 
+ext.robospice = '1.4.12';
+ext.gson = '2.2.4';
+
 dependencies {
     compile 'com.android.support:support-v4:+'
     compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
+    compile "com.octo.android.robospice:robospice-spring-android:${robospice}"
 }
 
 

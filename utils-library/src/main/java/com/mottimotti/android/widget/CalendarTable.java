@@ -10,10 +10,15 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+
 import com.mottimotti.android.R;
 
 import java.text.DateFormatSymbols;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 
 public class CalendarTable extends TableLayout {

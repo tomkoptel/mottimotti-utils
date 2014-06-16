@@ -2,6 +2,7 @@ package com.mottimotti.android.app;
 
 import android.app.Activity;
 import android.content.Intent;
+
 import com.mottimotti.android.R;
 
 public class AnimationActivity extends Activity {

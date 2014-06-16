@@ -7,6 +7,7 @@ import android.graphics.PorterDuff;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ImageView;
+
 import com.mottimotti.android.R;
 
 public class AutoLayerImageView extends ImageView {

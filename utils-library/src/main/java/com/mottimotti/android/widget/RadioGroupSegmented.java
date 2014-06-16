@@ -5,6 +5,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.widget.RadioGroup;
+
 import com.mottimotti.android.R;
 
 public class RadioGroupSegmented extends RadioGroup {

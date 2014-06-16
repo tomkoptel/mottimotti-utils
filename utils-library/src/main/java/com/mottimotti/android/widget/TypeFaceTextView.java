@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+
 import com.mottimotti.android.R;
 import com.mottimotti.android.utils.Typefaces;
 
