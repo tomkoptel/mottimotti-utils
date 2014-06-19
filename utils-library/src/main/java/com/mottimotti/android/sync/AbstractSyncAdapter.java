@@ -64,8 +64,7 @@ public abstract  class AbstractSyncAdapter extends AbstractThreadedSyncAdapter
         final boolean manualSync = extras.getBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, false);
         // Perform a sync using SyncHelper
         if (mSyncHelpers == null) {
-            mSyncHelpers = getSyncHelpers();
-
+            mSyncHelpers = getSyncHelpers(syncResult);
         }
         int flag = SyncHelper.FLAG_SYNC_REMOTE;
         if (manualSync) flag |= SyncHelper.FLAG_SYNC_MANUAL;

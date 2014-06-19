@@ -43,8 +43,6 @@ public abstract class AbstractPersister<T> implements Persister<T> {
         return mSyncResult;
     }
 
-    protected abstract RestTemplate createRestTemplate();
-
     public final ArrayList<ContentProviderOperation> fetchAndPersist(Bundle bundle) { return persist(fetch(bundle));}
 
     public final ArrayList<ContentProviderOperation> fetchAndPersist() { return persist(fetch(null));}

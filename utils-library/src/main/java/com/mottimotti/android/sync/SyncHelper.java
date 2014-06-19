@@ -82,8 +82,10 @@ public final class SyncHelper {
                 cm.getActiveNetworkInfo().isConnectedOrConnecting();
     }
 
-    public static Builder newSyncBuilder(Context context,SyncResult syncResult) {
-        return new Builder().setContext(context).setSyncResult(syncResult);
+    public static Builder newSyncBuilder(Context context, String authority, SyncResult syncResult) {
+        return new Builder().setContext(context)
+                .setContentAuthority(authority)
+                .setSyncResult(syncResult);
     }
 
     public static class Builder {
@@ -92,6 +94,8 @@ public final class SyncHelper {
         private String contentAuthority;
         private SyncResult mSyncResult;
         private OnSyncFinishedListener syncFinishedListener;
+
+        private Builder() {}
 
         public Builder registerPersister(String table, Class<?> clazz) {
             try {
@@ -103,23 +107,24 @@ public final class SyncHelper {
             return this;
         }
 
-        public Builder setContext(Context context) {
+        private Builder setContext(Context context) {
             mContext = context;
             return this;
         }
 
-        public Builder setSyncResult(SyncResult syncResult) {
+        private Builder setSyncResult(SyncResult syncResult) {
             mSyncResult = syncResult;
+            return this;
+        }
+
+        private Builder setContentAuthority(String contentAuthority) {
+            this.contentAuthority = contentAuthority;
             return this;
         }
 
         public Builder setSyncFinishListener(OnSyncFinishedListener syncFinishedListener) {
             this.syncFinishedListener = syncFinishedListener;
             return this;
-        }
-
-        public void setContentAuthority(String contentAuthority) {
-            this.contentAuthority = contentAuthority;
         }
 
         public SyncHelper build() {
