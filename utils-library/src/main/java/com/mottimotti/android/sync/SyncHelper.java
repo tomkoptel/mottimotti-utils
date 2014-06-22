@@ -5,7 +5,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.OperationApplicationException;
 import android.content.SyncResult;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.RemoteException;
 
@@ -19,10 +18,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.mottimotti.android.utils.ConnectionDetector.isOnline;
+
 
 public final class SyncHelper {
+    public static final String SYNC_EXTRAS_CACHED = "SYNC_CACHED";
+
     public static final int FLAG_SYNC_MANUAL = 0x1;
-    public static final int FLAG_SYNC_REMOTE = 0x2;
+    public static final int FLAG_SYNC_REMOTE = 0x4;
+    public static final int FLAG_SYNC_CACHED = 0x8;
+
     public final Map<String, AbstractPersister<?>> persistersMap;
 
     private final Context mContext;
@@ -48,18 +53,17 @@ public final class SyncHelper {
         ContentResolver contentResolver = mContext.getContentResolver();
         ArrayList<ContentProviderOperation> batch = new ArrayList<>();
 
-        if ((flags & FLAG_SYNC_REMOTE) != 0 && isOnline()) {
-            if (extras.containsKey(AbstractSyncUtils.PERSISTER_KEY)) {
-                String persisterKey = extras.getString(AbstractSyncUtils.PERSISTER_KEY);
-                AbstractPersister<?> persister = persistersMap.get(persisterKey);
-                if (persister != null) {
-                    batch.addAll(persister.fetchAndPersist(extras));
-                }
-            } else {
-                for (Map.Entry<String, AbstractPersister<?>> entry : persistersMap.entrySet()) {
-                    batch.addAll(entry.getValue().fetchAndPersist());
-                }
-            }
+
+        String persisterKey = extras.getString(AbstractSyncUtils.PERSISTER_KEY);
+        if (((flags & FLAG_SYNC_REMOTE) == FLAG_SYNC_REMOTE) && isOnline(mContext)) {
+            persist(extras, batch, persisterKey);
+        }
+        if (((flags & FLAG_SYNC_CACHED) == FLAG_SYNC_CACHED)) {
+            Bundle extra = new Bundle();
+            extra.putAll(extras);
+            extra.putBoolean(SYNC_EXTRAS_CACHED, true);
+
+            persist(extra, batch, persisterKey);
         }
 
         try {
@@ -75,11 +79,17 @@ public final class SyncHelper {
         }
     }
 
-    private boolean isOnline() {
-        ConnectivityManager cm = (ConnectivityManager) mContext.getSystemService(
-                Context.CONNECTIVITY_SERVICE);
-        return cm.getActiveNetworkInfo() != null &&
-                cm.getActiveNetworkInfo().isConnectedOrConnecting();
+    private void persist(Bundle extras, ArrayList<ContentProviderOperation> batch, String persisterKey) {
+        if (persisterKey != null) {
+            AbstractPersister<?> persister = persistersMap.get(persisterKey);
+            if (persister != null) {
+                batch.addAll(persister.fetchAndPersist(extras));
+            }
+        } else {
+            for (Map.Entry<String, AbstractPersister<?>> entry : persistersMap.entrySet()) {
+                batch.addAll(entry.getValue().fetchAndPersist(extras));
+            }
+        }
     }
 
     public static Builder newSyncBuilder(Context context, String authority, SyncResult syncResult) {
@@ -95,7 +105,8 @@ public final class SyncHelper {
         private SyncResult mSyncResult;
         private OnSyncFinishedListener syncFinishedListener;
 
-        private Builder() {}
+        private Builder() {
+        }
 
         public Builder registerPersister(String table, Class<?> clazz) {
             try {

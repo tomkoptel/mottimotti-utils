@@ -42,10 +42,6 @@ public abstract  class AbstractSyncAdapter extends AbstractThreadedSyncAdapter
     public void onPerformSync(Account account, Bundle extras,
                               String authority, ContentProviderClient provider,
                               SyncResult syncResult) {
-        final boolean uploadOnly = extras.getBoolean(ContentResolver.SYNC_EXTRAS_UPLOAD, false);
-        final boolean manualSync = extras.getBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, false);
-        final boolean initialize = extras.getBoolean(ContentResolver.SYNC_EXTRAS_INITIALIZE, false);
-
         String chosenAccountName = getAccountUtility().getChosenAccountName();
         boolean isAccountSet = !TextUtils.isEmpty(chosenAccountName);
         boolean isChosenAccount = isAccountSet && chosenAccountName.equals(account.name);
@@ -62,12 +58,14 @@ public abstract  class AbstractSyncAdapter extends AbstractThreadedSyncAdapter
 
     private void startSync(SyncResult syncResult, Bundle extras) {
         final boolean manualSync = extras.getBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, false);
+        final boolean cachedSync = extras.getBoolean(SyncHelper.SYNC_EXTRAS_CACHED, false);
         // Perform a sync using SyncHelper
         if (mSyncHelpers == null) {
             mSyncHelpers = getSyncHelpers(syncResult);
         }
         int flag = SyncHelper.FLAG_SYNC_REMOTE;
         if (manualSync) flag |= SyncHelper.FLAG_SYNC_MANUAL;
+        if (cachedSync) flag = SyncHelper.FLAG_SYNC_CACHED;
 
         for (SyncHelper syncHelper : mSyncHelpers) {
             try {

@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.SyncResult;
 import android.os.Bundle;
 
-import org.springframework.web.client.RestTemplate;
-
 import java.util.ArrayList;
 
 public abstract class AbstractPersister<T> implements Persister<T> {
